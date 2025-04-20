@@ -2,7 +2,7 @@
 ## Giảng viên hướng dẫn:
 * Thầy Lê Gia Công
 ## 
-## Web back-end
+## Chương 1: Web back-end
 ### 1.1 Một số khái niệm  
 - **Web:** Web hay WWW là từ viết tắt của World Wide Web là mạng lưới thông tin toàn cầu. Web hoạt động dựa trên hạ tầng là Internet. Web bao gồm rất nhiều các trang web kết nối lại với nhau, với thông tin đa dạng như văn bản, hình ảnh, âm thanh, video, và nhiều loại dữ liệu khác.
 - **Trang web:** là một trang tài liệu trên hệ thống web. Trang web có thể chứa văn bản, hình ảnh, âm thanh, video, và các nội dung đa phương tiện khác.  
@@ -863,21 +863,633 @@ app.get('/:page', (req, res) =>{
 #### 1.15.3 Sử dụng partial
 - Partial là các thành phần con, là các đoạn mã HTML có thể tái sử dụng, được nhúng vào các “view” hoặc “layout”. Việc sử dụng partial giúp bạn chia nhỏ giao diện thành các thành phần nhỏ hơn, dễ quản lý hơn.
 
+## Chương 2: Git thực hành
+### 2.1 Hệ thống quản lý phiên bản
+- **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
+- **Hệ thống quản lý phiên bản (Version Control System - VCS):** một phần mềm giúp chúng ta lưu lại từng thay đổi của mã nguồn dự án, và giúp lấy lại được các phiên bản trước đó nếu cần.
+  - Các chức năng chính:
+    - Khôi phục lại trạng thái của dự án ở các thời điểm khác nhau trong quá khứ
+    - Biết được ai đã thực hiện các thay đổi trên dự án, và đã thay đổi những gì
+    - Dễ dàng khôi phục lại các nội dung mã nguồn bị xóa
+    - Dễ dàng so sánh những thay đổi của dự án theo các mốc thời gian
+  - Phân loại:
+    - Hệ thống quản lý phiên bản cục bộ
+    - Hệ thống quản lý phiên bản tập trung
+    - Hệ thống quản lý phiên bản phân tán
+### 2.1.1 Hệ thống quản lý phiên bản cục bộ
+- Phương pháp tự lưu trữ các phiên bản của thư mục dự án ở các thời điểm khác nhau trong quá trình làm việc thành các tên khác nhau.  
+![image](https://github.com/user-attachments/assets/1bd09066-d963-41e3-afb1-b97e201e4df5)  
+- **Ưu điểm:**
+  - Hiệu suất nhanh
+  - Tự kiểm soát dữ liệu
+  - Dễ quản lý
+  - Làm việc offline
+- **Nhược điểm:**
+  - Không hỗ trợ làm việc nhóm
+  - Không có backup tự động
+  - Khó kiểm soát khi số lượng phiên bản lớn
+
+### 2.1.2 Hệ thống quản lý phiên bản tập trung
+- Gồm máy chủ chứa các phiên bản của thư mục dự án và danh sách các máy khách được phép thay đổi thư mục dự án trên máy chủ. Các máy khách sẽ lấy các phiên bản của thư mục dự án từ máy chủ về, thực hiện các thay đổi trên thư mục dự án và cập nhật lại các thay đổi về máy chủ  
+![image](https://github.com/user-attachments/assets/7708b983-fdb9-4c8b-81f3-20a1d905066e)  
+- **Ưu điểm:**
+  - Dễ quản lý tập trung
+  - Hỗ trợ làm việc nhóm
+  - Phân quyền dễ dàng
+  - Nhật ký thay đổi rõ ràng
+  - Dung lượng máy client nhẹ
+- **Nhược điểm:**
+  - Phụ thuộc lớn vào server
+  - Phụ thuộc vào mạng
+  - Không làm việc offline
+
+### 2.1.3 Hệ thống quản lý phiên bản phân tán
+- Các máy client không chỉ lấy thư mục mới nhất như hệ thống quản lý phiên bản tập trung mà nó còn chép toàn bộ cả kho chứa (repository, repo), trong đó bao gồm cả - lịch sử các phiên bản  
+![image](https://github.com/user-attachments/assets/44dbfb77-8ba4-4dbe-98b5-558d81355d18)  
+- **Ưu điểm:**
+  - Mỗi client đều có bản sao đầy đủ
+  - Làm việc offline dễ dàng
+  - Bảo mật và an toàn cao
+  - Quản lý nhánh mạnh mẽ
+  - Hiệu suất cao khi làm việc nhóm
+- **Nhược điểm:**
+  - Tốn dung lượng máy client
+  - Cần cấu hình remote hợp lý
+  - Phụ thuộc vào tool khi merge
+
+### 2.2 Tổng quan về git
+#### 2.2.1 Git là gì?
+- Git là một hệ thống quản lý phiên bản phân tán (distributed version control system) được sử dụng rộng rãi trong phát triển phần mềm. Nó cho phép các nhóm lập trình viên theo dõi và quản lý các thay đổi trong mã nguồn của một dự án một cách hiệu quả
+- Một số tính năng của Git:
+  - Theo dõi lịch sử thay đổi: Git lưu lại từng thay đổi nhỏ nhất của mã nguồn, giúp bạn dễ dàng quay lại các phiên bản trước đó nếu cần
+  - Cộng tác hiệu quả: Git cho phép nhiều người cùng làm việc trên một dự án cùng lúc, đồng thời hợp nhất các thay đổi một cách dễ dàng
+  - Phân nhánh và hợp nhất: Git hỗ trợ tạo nhiều nhánh (branch) làm việc độc lập, giúp bạn thử nghiệm các tính năng mới mà không ảnh hưởng đến phần còn lại của dự án
+  - Bảo mật: Git lưu trữ các thay đổi dưới dạng các bản ghi (commit) không thể thay đổi, đảm bảo tính toàn vẹn của mã nguồn
+  - Phân tán: mỗi bản sao của một kho lưu trữ Git đều là một kho lưu trữ đầy đủ, cho phép bạn làm việc không cần kết nối mạng và đồng bộ hóa sau đó (khi có kết nối mạng)
+
+#### 2.2.2 Nhúng Git vào dự án
+- Mặc dù Git đã được tích hợp vào các phần mềm lập trình (ví dụ Visual Studio, Eclipse, VS code). Tuy nhiên, cách học Git hiệu quả nhất vẫn là sử dụng giao diện dòng lệnh. Giao diện dòng lệnh chứa đầy đủ nhất các lệnh của Git, khi đã hiểu được bản chất các lệnh rồi thì chuyển sang sử dụng các giao diện khác rất đơn giản.
+
+- **Các bước nhúng Git vào dự án:**
+
+  - B1: Di chuyển vào thư mục dự án bằng lệnh cd trong CLI
+  - B2: Gõ lệnh git init (Nếu thành công thì sẽ hiện thông báo "initialized empty Git repository in [Path của ban]")
+  - B3: Quan sát sự thay đổi của thư mục dự án (Có thêm thư mục .git - Đây chính là kho chứa (kho lưu trữ) mà phần mềm Git thêm tạo ra trong thư mục dự án để sử dụng cho các tác vụ của nó)  
+![image](https://github.com/user-attachments/assets/95418dad-c735-4715-99ef-fcf0d99b97d4)  
+
+### 2.4 Cấu hình định danh người dùng
+#### 2.4.1 Định danh người dùng
+- Trong quá trình phát triển phần mềm, đặc biệt là khi làm việc nhóm, việc theo dõi và quản lý các thay đổi là vô cùng quan trọng.
+- Để đảm bảo tính minh bạch và trách nhiệm, Git yêu cầu mỗi commit (bản ghi thay đổi) đều phải gắn liền với thông tin người thực hiện. Điều này cho phép chúng ta:
+  - Xác định tác giả: dễ dàng biết được ai là người viết hoặc chỉnh sửa một đoạn mã cụ thể.
+  - Theo dõi đóng góp: nắm bắt được lịch sử đóng góp của từng thành viên trong dự án.
+  - Phân công trách nhiệm: quy trách nhiệm cho từng thành viên đối với những thay đổi mà họ thực hiện. Để thực hiện điều này, chúng ta cần tiến hành cấu hình định danh người dùng cho Git. Quá trình này sẽ thiết lập thông tin cá nhân, bao gồm tên và địa chỉ email, được sử dụng để gắn vào các commit. Nhờ đó, mỗi thay đổi trong dự án sẽ được gắn với một cá nhân cụ thể, tạo nên một lịch sử làm việc rõ ràng và dễ theo dõi.
+- Bạn sẽ không thể thực hiện commit nếu chưa thiết lập thông tin cá nhân trong hệ thống Git.
+- **Cấu hình thông tin cá nhân với lệnh git config:**
+  - Lệnh git configđược sử dụng để đọc, ghi hoặc cập nhật các thiết lập cấu hình của Git. Git cho phép bạn cấu hình ở ba phạm vi khác nhau: system, global và local, mỗi phạm vi có mức độ ảnh hưởng và ưu tiên riêng.
+  - system (phạm vi hệ thống):
+    - Phạm vi này áp dụng cho tất cả người dùng và tất cả kho lưu trữ trên hệ thống
+    - Tập tin cấu hình được lưu tại C:\Program Files\Git\etc (trên Windows).
+    - Cần quyền quản trị hệ thống để thực hiện cấu hình ở mức này.
+    - Để cấu hình, sử dụng tham số --system với lệnh git config. Ví dụ: git config --system user.name "NH1Tkendo"
+  - global (phạm vi người dùng):
+    - Phạm vi này áp dụng cho tài khoản người dùng hiện tại và cho tất cả kho lưu trữ mà người dùng đó làm việc.
+    - Tập tin cấu hình được lưu tại C:\Users<tên_người_dùng>.gitconfig (trên Windows).
+    - Đây là phạm vi cấu hình được sử dụng nhiều nhất.
+    - Để cấu hình, sử dụng tham số --global với lệnh git config. Ví dụ: git config --global user.name "NH1Tkendo"
+  - local (phạm vi kho lưu trữ, repo)
+    - Phạm vi này áp dụng cho một kho lưu trữ cụ thể.
+    - Tập tin cấu hình được lưu tại .git/config trong thư mục gốc của kho lưu trữ
+    - Để cấu hình, sử dụng lệnh git config mà không có tham số --system hoặc --global. Tất nhiên, bạn phải di chuyển dấu nhắc chuột vào thư mục gốc của kho lưu trữ, để gõ lệnh. Ví dụ: git config user.name "NH1Tkendo"
+- **Xem thông tin cấu hình**
+  - Để xem thông tin cấu hình, sử dụng lệnh: git config --list
+  - Tùy thuộc vào vị trí dấu nhắc chuột bạn sẽ xem được thông tin cấu hinh ở các phạm vi khác nhau (system, global hay local).
+  - Khi xem thông tin cấu hình trong CMD, nếu thông tin cấu hình nhiều hơn một màn hình, bạn sẽ thấy dấu nhắc (:), bấm enter để xem thêm thông tin. Khi hết thông tin sẽ có chữ (END). Để thoát màn hình, bấm dấu hai chấm (:) kèm theo chữ q.
+- Độ ưu tiên của cấu hình
+  - Khi có cấu hình ở cả ba phạm vi, Git sẽ sử dụng cấu hình có độ ưu tiên cao nhất.
+  - Thứ tự ưu tiên là: local > global > system. Nghĩa là cấu hình ở local có độ ưu tiên cao nhất, sau đó đến global và cuối cùng là system. Điều này cho phép bạn ghi đè các cấu hình chung bằng các cấu hình cụ thể cho từng dự án.
+- **Kinh nghiệm thực tế**
+  - Trước khi thực hiện bất kỳ commit nào, bạn cần kiểm tra cấu hình tên và địa chỉ email của mình. Git sẽ sử dụng thông tin này để gắn với mỗi commit, giúp xác định tác giả của các thay đổi.
+  - Nên cấu hình danh tính ở phạm vi global để áp dụng cho tất cả dự án.
+  - Nếu cần sử dụng thông tin khác cho một dự án cụ thể, hãy cấu hình ở phạm vi local cho dự án đó. Cấu hình địa chỉ email Để cấu hình địa chỉ email, bạn thực hiện tương tự như cấu hình tên. Chỉ việc thay đổi tham số user.name thành user.email.
+- VD:
+```javascript
+git config --global user.email "anhduc07062002@gmail.com"
+```
+
+#### 2.4.2 Xóa hoặc thay đổi định danh
+- **Xóa định danh người dùng** Nếu bạn muốn xóa hoàn toàn định danh người dùng đã cấu hình (ở phạm vi global), bạn có thể sử dụng lệnh:
+```javascript
+git config --global --unset user.name
+git config --global --unset user.email
+```
+- Tương tự, bạn có thể xóa cấu hình ở phạm vi local hoặc system bằng cách bỏ qua hoặc thay thế --global bằng --local hoặc --system. Thay đổi định danh người dùng Nếu bạn muốn thay đổi định danh người dùng đã cấu hình (ở phạm vi global), bạn có thể sử dụng lệnh:
+```javascript
+git config --global user.name "Tên mới của bạn"
+git config --global user.email "email_mới@example.com"
+```
+- Lệnh này sẽ ghi đè lên cấu hình cũ.
+-Tương tự, bạn có thể thay đổi cấu hình ở mức local hoặc system bằng cách bỏ qua hoặc thay thế --global bằng --local hoặc --system.
+
+### 2.5 Các khu vực làm việc của Git
+#### 2.5.1 Ba khu vực làm việc của Git
+- Thư mục làm việc (working directory): là nơi bạn chỉnh sửa tập tin trực tiếp trên máy tính. Đây là bản sao hiện tại của dự án, chứa cả các thay đổi chưa được theo dõi bởi Git
+- Khu vực tổ chức tạm (staging area) gọi tắt là Khu tạm: là vùng trung gian, lưu trữ các thay đổi mà bạn đã chọn để commit, được quản lý bằng tập tin .git\index Dùng lệnh git add để thêm tập tin vào Khu tạm. Ví dụ: git add index.js, sẽ đưa tập tin index.js vào Khu tạm.
+- Kho chứa (repository) lưu trữ tất cả các tập tin và lịch sử thay đổi của một dự án. Thư mục .git trong dự án chính là Kho chứa. Dùng git commit để chuyển tập tin từ Khu tạm sang Kho chứa. Ví dụ: sau lệnh git commit, những thay đổi của tập tin index.js sẽ được lưu vào Kho chứa.  
+Với việc phân chia thành 3 khu vực, Git sẽ giúp bạn quản lý mã nguồn một cách hiệu quả. Quy trình làm việc cụ thể như sau: chỉnh sửa mã nguồn ở Thư mục làm việc > chuẩn bị nội dung commit ở Khu tạm > lưu trữ mã nguồn, lịch sử ở Kho chứa.  
+![image](https://github.com/user-attachments/assets/4468fe51-289b-486e-ac27-c1465f3f6f4a)  
+
+#### 2.5.2 Thư mục làm việc
+- Thư mục làm việc (working directory) để làm gì?
+  - Chỉnh sửa mã nguồn: là nơi bạn tạo, sửa, hoặc xóa tập tin trước khi đưa thay đổi vào .git.
+  - Xem trạng thái dự án: phản ánh các thay đổi so với commit cuối cùng, giúp bạn quyết định những gì cần thêm vào Khu tạm.
+  - Thử nghiệm: cho phép thử nghiệm các đoạn mã mà không ảnh hưởng ngay đến lịch sử phiên bản trong Kho chứa.
+- Có 2 cách để có Thư mục làm việc:
+  - Khởi tạo kho chứa mới: dùng lệnh git init
+  - Sao chép một kho chứa có sẵn từ nơi khác (ví dụ từ Github): dùng lệnh git clone
+  - VD:
+```javascript
+git clone
+https://github.com/username/my-project.git
+```
+- **Lệnh git add** Lệnh git add dùng để đưa các thay đổi từ Thư mục làm việc vào Khu tạm. Lệnh này giúp bạn chọn lọc những tập tin hoặc phần thay đổi cụ thể để chuẩn bị cho lần commit tiếp theo, thay vì commit tất cả mọi thứ trong Thư mục làm việc. Nói cách khác, git add là bước "đánh dấu" những gì bạn muốn lưu vào lịch sử phiên bản.
+- Cú pháp:
+  - git add <tập_tin>: thêm một tập tin cụ thể.
+  - git add .: thêm tất cả thay đổi.
+  - git add -p: thêm từng phần thay đổi (patch) trong tập tin.
+- Lệnh git status Lệnh git status được sử dụng để hiển thị trạng thái hiện tại của Kho lưu trữ và Thư mục làm việc.
+```javascript
+$ git status
+On branch test/login
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   index.js
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+- Lệnh git status ở trên cho biết: có tập tin mới xuất hiện (index.js) trong dự án mà chưa được Git theo dõi (untracked). Hiện tại trong Khu tạm chưa có gì (nothing added to commit). Nếu muốn theo dõi tập tin và chuẩn bị đưa tập tin vào Kho chứa thì sử dụng lệnh git add <tên_tập_tin>.
+- Kết quả khi gõ lại git status 1 lần nữa sau khi dùng lệnh git add
+```javascript
+$ git status
+On branch test/login
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   cau_hinh_webserver/index.js
+```
+- Lệnh git status ở trên cho biết: có một tập tin (index.js) đã sẵn sàng để đưa vào Kho chứa (commit).
+
+#### 2.5.3 Khu tạm
+- Là một khu vực trung gian giữa Thư mục làm việc (working directory) và Kho chứa (repository). Nó cho phép bạn chọn lọc và tổ chức các thay đổi bạn muốn đưa vào commit tiếp theo.
+- Khu tạm là tập tin index trong thư mục .git.
+- Lệnh ```javascript git rm --cached <tên_tập_tin> ```
+- Lệnh này sẽ bỏ tập tin ra khỏi khi tạm trong trường hợp add nhầm tập tin vào khu này hoặc không muốn commit tập tin này nữa
+
+#### 2.5.4 Gitignore
+- Git ignore là một cơ chế trong Git, cho phép bạn chỉ định các tập tin hoặc thư mục mà Git sẽ bỏ qua (không theo dõi - untracked) khi thực hiện các lệnh như git add hoặc git status. Điều này được thực hiện thông qua tập tin .gitignore, thường được đặt ở thư mục gốc của dự án. Mục đích là loại bỏ các tập tin không cần thiết khỏi lịch sử phiên bản, như tập tin tạm, tập tin nhị phân, hoặc thư viện phụ thuộc.
+- **Công dụng của gitignore**
+  - Tránh commit rác: không thêm các tập tin không liên quan (ví dụ: node_modules, tập tin log) vào kho chứa.
+  - Giữ lịch sử sạch: tập trung vào mã nguồn chính.
+  - Tăng hiệu quả: giảm kích thước kho chứa và tránh xung đột không cần thiết. 
+  - Tạo tập tin .gitignore trong thư mục dự án.
+  - Trong tập tin .gitignore, ghi các mẫu (pattern) của tập tin/thư mục muốn bỏ qua.
+  - Ví dụ về gitignore [.gitignore]
+```javascript
+node_modules/
+dist/
+.env
+*.txt
+*.tmp
+```
+- Bỏ qua toàn bộ thư mục node_modules, dist; bỏ qua tập tin.env; bỏ qua các tập tin có đuôi là .env, .txt, .tmp.
+- Lưu ý: Tập tin .gitignore cũng cần được commit vào kho chứa, để các thành viên trong nhóm cùng dùng một bộ quy tắc của gitignore. Điều này đảm bảo mọi người sẽ làm việc với một kho chứa gọn gàng, tránh được các xung đột không cần thiết.
+
+#### 2.5.5 Kho chứa
+- Kho chứa (repository) là nơi lưu trữ tất cả các tập tin và lịch sử thay đổi của một dự án. Thư mục .git trong dự án chính là Kho chứa. Dùng git commit để chuyển tập tin từ Khu tạm sang Kho chứa.
+- Kho chứa giống như một cơ sở dữ liệu, chứa mọi phiên bản của mã nguồn, cho phép bạn quay lại bất kỳ thời điểm nào trong quá trình phát triển.
+- Có 2 loại kho chứa: kho chứa cục bộ và kho chứa ở xa
+  - **Kho chứa cục bộ (local repository)**
+    - Là kho chứa nằm trên máy tính cá nhân của bạn.
+    - Ccó thể tạo kho chứa cục bộ bằng lệnh git init.
+    - Đây là nơi bạn làm việc trực tiếp với mã nguồn và thực hiện các commit.
+  - **Kho chứa ở xa (remote repository)**
+    - Là kho chứa được lưu trữ trên một máy chủ ở xa, chẳng hạn như GitHub, GitLab hoặc Bitbucket.
+    - Kho chứa ở xa cho phép nhiều người cùng làm việc trên một dự án và chia sẻ các thay đổi.
+    - Có thể sao chép kho chứa ở xa về máy tính của mình bằng lệnh git clone.
+
+#### 2.5.6 Lệnh Git commit
+- git commit là lệnh trong Git, dùng để lưu các thay đổi từ Khu tạm vào Kho chứa, tạo ra một "ảnh chụp" (snapshot) mới trong lịch sử phiên bản. Mỗi commit đi kèm một thông điệp (message) mô tả thay đổi, giúp theo dõi và quản lý mã nguồn hiệu quả.
+- **Vai trò của lệnh git commit**
+  - Ghi nhận thay đổi: lưu vĩnh viễn các tập tin/thay đổi đã được thêm bằng git add.
+  - Tạo lịch sử: mỗi commit là một mốc thời gian, gắn với định danh người dùng (tác giả).
+  - Hỗ trợ cộng tác: giúp nhóm biết ai đã làm gì và khi nào. **Cú pháp cơ bản**
+  - git commit -m "Thông điệp": commit với thông điệp ngắn gọn.
+  - git commit: mở trình soạn thảo để viết thông điệp chi tiết.
+  - git commit -a -m "Thông điệp": tự động thêm các tập tin đã theo dõi (tracked) và commit. **Quy trình làm việc thực tế**
+  - Chỉnh sửa tập tin trong Khu vực làm việc (working directory).
+  - Dùng git add để đưa vào Khu tạm (staging area).
+  - Dùng git commit để lưu vào Kho chứa (repository).
+- **Cách viết thông điệp trong lệnh commit**
+  - Thông điệp commit là phần mô tả ngắn gọn nhưng rõ ràng về thay đổi bạn vừa thực hiện.
+  - Nó được viết khi dùng git commit, giúp bạn và nhóm hiểu mục đích của commit khi xem lại lịch sử.
+- Cách viết theo chuẩn thường dùng [1] Dòng đầu tiên (Subject):
+  - Ngắn gọn (dưới 50 ký tự), mô tả chính xác thay đổi.
+  - Dùng động từ ở dạng mệnh lệnh (imperative), như "Add", "Fix", "Update".
+  - Ví dụ: "Add login feature". [2] Dòng trống (nếu cần chi tiết):
+  - Để cách dòng đầu một dòng trống. [3] Phần mô tả chi tiết (body, tùy chọn):
+  - Giải thích "tại sao" và "cái gì" nếu cần, dài không quá 72 ký tự.
+  - Dùng khi thay đổi phức tạp. [4] Cách nhập thông điệp:
+  - Dùng -m cho thông điệp ngắn: git commit -m "Thông điệp".
+  - Không dùng -m để mở trình soạn thảo (như Vim) viết chi tiết.
+- Ví dụ dùng ```javascript -m với thông điệp ngắn: git commit -m "Initialize Node.js project with Express and Nodemon" ```
+- **Ví dụ dùng thông điệp chi tiết:**
+```javascript
+Fix: resolve issue with user login 
+
+This commit addresses a bug where users were unable to log in due to an incorrect password validation. 
+- Modified the password validation logic in `auth.py`. 
+- Added unit tests to verify the fix.
+```
+
 ### BÀI TẬP  
+**Câu 1.1** Liệt kê 3 gói thuê bao (tên gói, giá tiền) của 3 nhà cung cấp kết nối Internet tại Việt Nam.
+VNPT (Gói Home NET 1, 165.000 VNĐ/tháng)  
+Viettel (Gói SUN1, 180.000 VNĐ/tháng (ngoại thành), 220.000 VNĐ/tháng (nội thành))  
+FPT (Gói GIGA, 165.000 VNĐ/tháng)  
 
-- **Câu 1.1** Liệt kê 3 gói thuê bao (tên gói, giá tiền) của 3 nhà cung cấp kết nối Internet tại Việt Nam.
-  - VNPT (Gói Home NET 1, 165.000 VNĐ/tháng)
-  - Viettel (Gói SUN1, 180.000 VNĐ/tháng (ngoại thành), 220.000 VNĐ/tháng (nội thành))
-  - FPT (Gói GIGA, 165.000 VNĐ/tháng)
+**Câu 1.3** Phát biểu nào không đúng khi nói về web, trang web và website?
+A. Web là hệ thống thông tin toàn cầu  
+B. Web được tạo thành nhờ các trang web và sự liên kết giữa chúng  
+**C. Một trang web chứa nhiều website**  
+D. Một website chứa nhiều trang web có liên quan đến nhau  
 
-- **Câu 1.3** Phát biểu nào không đúng khi nói về web, trang web và website?
-  - A. Web là hệ thống thông tin toàn cầu
-  - B. Web được tạo thành nhờ các trang web và sự liên kết giữa chúng
-  - **C. Một trang web chứa nhiều website**
-  - D. Một website chứa nhiều trang web có liên quan đến nhau
+**Câu 1.4** Phát biểu nào không đúng khi nói về website và ứng dụng web?
+A. Không có sự phân biệt rõ ràng giữa website và ứng dụng web  
+B. Một website và ứng dụng web có một địa chỉ URL để truy cập  
+C. Website và ứng dụng web hoạt động dựa trên mô hình client-server  
+**D. Chỉ cần sử dụng HTML và CSS là có thể tạo ra được ứng dụng web**  
 
-- **Câu 1.4** Phát biểu nào không đúng khi nói về website và ứng dụng web?
-  - A. Không có sự phân biệt rõ ràng giữa website và ứng dụng web
-  - B. Một website và ứng dụng web có một địa chỉ URL để truy cập
-  - C. Website và ứng dụng web hoạt động dựa trên mô hình client-server
-  - **D. Chỉ cần sử dụng HTML và CSS là có thể tạo ra được ứng dụng web**
+**Câu 2.3:** Có 3 cách để tạo ra một ứng dụng web? Phát biểu nào không đúng?
+A. Sử dụng CMS  
+B. Sử dụng framework và thư viện hỗ trợ  
+C. Viết thuần bằng ngôn ngữ lập trình mà không sử dụng framework, thư viện hỗ trợ  
+**D. Sử dụng trình duyệt web**  
+
+**Câu 2.4:** Những ưu điểm khi sử dụng CMS để tạo ra ứng dụng web. Phát biểu nào không đúng?
+**A. Cần kiến thức lập trình chuyên sâu**  
+B. Tối ưu SEO  
+C. Dễ sử dụng, dễ quản lý, tiết kiệm thời gian  
+D. Chi phí phát triển ứng dụng thấp  
+
+**Câu 2.5:** Những ưu điểm khi sử dụng framework và thư viện để tạo ra ứng dụng web. Phát biểu nào không đúng?
+A. Tăng tốc độ phát triển  
+B. Cải thiện chất lượng viết mã  
+**C. Giảm khả năng bảo mật**  
+D. Dễ dàng bảo trì và mở rộng  
+
+**Câu 3.2:** Một số phần mềm web server phổ biến. Phát biểu nào không đúng?
+A. Apache  
+B. Nginx  
+**C. SSI**  
+D. Node.js  
+
+**Câu 3.3:** Các chức năng của Web server là gì? Phát biểu nào không đúng?
+A. Lưu trữ các tập tin của ứng dụng web  
+B. Nhận request từ client  
+C. Xử lý request  
+**D. Nhận response từ máy client**  
+
+**4.2:** Lệnh nào được sử dụng để nhúng Git vào thư mục dự án?
+**A. git init**  
+B. git --init  
+C. git initialize  
+D. git embed  
+
+**4.3:** Lệnh nào sử dụng để kiểm tra trên máy tính đã có phần mềm Git hay chưa?
+A. git ver  
+B. git version  
+**C. git --version hoặc git -v**  
+D. git --ver  
+
+**4.4:** Trong Git, kho lưu trữ (repo, repository) là gì?
+A. Là thư mục dự án  
+B. Là thư mục dự án đã được nhúng Git  
+C. Là thư mục cài đặt phần mềm Git  
+**D. Là thư mục .git (trong thư mục dự án)**  
+
+**4.5** Bạn có thể sử dụng các công cụ sau để viết mã. Phát biểu nào không đúng?
+A. Text editor  
+**B. MS Word**  
+C. IDE, Code Editor  
+D. Chatbot (Gemini), Trang web (https://codepen.io/)  
+
+**Câu 1.1** Các đặc điểm của hệ thống quản lý phiên bản cục bộ. Phát biểu nào không đúng?
+A. Có thể thực hiện thủ công  
+B. Không hỗ trợ trong môi trường cộng tác nhiều người  
+C. Có thể dùng phần mềm để quản lý phiên bản kiểu cục bộ  
+**D. Các phiên bản của dự án được lưu tập trung trên một máy server**  
+
+**Câu 1.2** Các đặc điểm của hệ thống quản lý phiên bản tập trung. Phát biểu nào không đúng?
+A. Các phiên bản của dự án được lưu tập trung trên máy server  
+**B. Các máy client sẽ chứa tất cả các phiên bản của thư mục dự án cùng với lịch sử thay đổi**  
+C. Máy client không thể tải phiên bản của dự án về, khi máy server không hoạt động  
+D. Hỗ trợ làm việc cộng tác nhiều người  
+
+**Câu 1.3** Các đặc điểm của hệ thống quản lý phiên bản phân tán. Phát biểu nào không đúng?
+A. Các máy client sẽ chứa toàn bộ các phiên bản của dự án, cùng lịch sử thay đổi  
+B. Hỗ trợ làm việc cộng tác nhiều người  
+C. Các phiên bản của dự án được lưu trên máy server  
+**D. Bạn không thể tạo và lưu phiên bản khi không có kết nối mạng tới máy server**  
+
+**Câu 5.2** Nodejs là gì? Phát biểu nào **không đúng**?  
+A. Nodejs là môi trường phát triển ứng dụng  
+**B. Nodejs là một ngôn ngữ lập trình**  
+C. Nodejs là nền tảng phát triển ứng dụng  
+D. Có thể sử dụng Nodejs để tạo web server
+
+**Câu 5.3** NPM là gì? Phát biểu nào **không đúng**?  
+A. NPM là viết tắt của Node Package Manager  
+B. NPM là công cụ để quản lý các thư viện dùng trong một ứng dụng chạy trên nền Nodejs  
+C. NPM được cài đặt mặc định khi cài đặt Nodejs  
+**D. NPM gồm 3 thành phần: website, GUI và registry**
+
+**Câu 6.4** Trong ứng dụng chạy trên nền Nodejs, tập tin package.json dùng để làm gì? Phát biểu nào **không đúng**?  
+A. Chứa thông tin mô tả về ứng dụng  
+B. Quản lý các phụ thuộc  
+C. Chỉ ra tập tin JavaScript đầu tiên được thực thi  
+**D. Chứa mã để tạo giao diện ứng dụng**
+
+**Câu 6.5** PNPM là gì? Phát biểu nào **không đúng**?  
+A. Giúp tiết kiệm dung lượng đĩa  
+B. Có thể thay thế hoặc bổ sung cho NPM  
+C. Là viết tắt của Performant Node Package Manager  
+**D. Không thể thay thế hoặc bổ sung cho NPM**
+
+**Câu 6.6** Express trong Node.js được sử dụng để làm gì?  
+**A. Tạo ứng dụng web và API**  
+B. Quản lý cơ sở dữ liệu  
+C. Thiết kế giao diện người dùng  
+D. Kiểm tra hiệu suất ứng dụng
+
+**Câu 6.7** Nodemon trong Node.js được sử dụng để làm gì?  
+A. Kết nối với cơ sở dữ liệu  
+B. Tạo giao diện người dùng cho ứng dụng  
+C. Quản lý các gói phụ thuộc  
+**D. Tự động khởi động lại server khi mã thay đổi**
+
+**Câu 7.2** Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào **không đúng** khi nói về gói cục bộ?  
+A. Gói cục bộ được cài đặt trong thư mục node_modules của dự án  
+B. Gói cục bộ chỉ có thể được sử dụng trong dự án mà nó được cài đặt  
+C. Gói cục bộ được quản lý thông qua file package.json và có thể sử dụng các phiên bản khác nhau giữa các dự án  
+**D. Gói cục bộ luôn được cài đặt toàn cục trên hệ thống để tất cả các dự án đều có thể truy cập**
+
+**Câu 7.3** Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào **không đúng** khi nói về gói toàn cục?  
+**A. Gói toàn cục luôn được liệt kê trong tập tin package.json của dự án**  
+B. Gói toàn cục thường được sử dụng cho các công cụ dòng lệnh (CLI) như nodemon  
+C. Gói toàn cục được lưu trong thư mục toàn cục của hệ thống và có thể truy cập từ bất kỳ dự án nào  
+D. Gói toàn cục được cài đặt bằng lệnh npm install -g
+
+**Câu 7.4** Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào **không đúng** khi nói về kiểu cài đặt dependencies?  
+A. Các gói trong dependencies được cài đặt cục bộ trong dự án bằng lệnh npm install  
+B. Các gói trong dependencies là các phụ thuộc cần thiết để ứng dụng chạy trong môi trường triển khai, sản xuất (production)  
+**C. Các gói trong dependencies chỉ được sử dụng trong giai đoạn phát triển và không cần thiết khi triển khai ứng dụng (production)**  
+D. Các gói trong dependencies được liệt kê trong tập tin package.json và tự động cài đặt khi chạy npm install
+
+**Câu 7.5** Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào **không đúng** khi nói về kiểu cài đặt devDependencies?  
+A. Các gói trong devDependencies được cài đặt bằng lệnh npm install --save-dev  
+**B. Các gói trong devDependencies là các phụ thuộc cốt lỗi để ứng dụng chạy trong môi trường triển khai (production)**  
+C. Các gói trong devDependencies chỉ cần thiết trong giai đoạn phát triển hoặc kiểm thử, không cần cho môi trường triển khai (production)  
+D. Các gói trong devDependencies không được cài đặt khi chạy npm install --production
+
+**Câu 8.2** Lập trình đồng bộ trong JavaScript là gì? Phát biểu nào sau đây **không đúng**?  
+**A. Lập trình đồng bộ không chặn luồng, cho phép các lệnh tiếp theo chạy ngay cả khi tác vụ chưa hoàn tất.**  
+B. Các lệnh được thực thi tuần tự, theo thứ tự từ trên xuống dưới.  
+C. Mỗi lệnh phải hoàn thành trước khi lệnh tiếp theo được thực thi.  
+D. Phù hợp với các tác vụ đơn giản như tính toán cơ bản không cần chờ đợi.
+
+**Câu 8.3** Hàm ẩn danh (anonymous function) trong JavaScript là gì? Phát biểu nào sau đây **không đúng**?  
+A. Hàm ẩn danh có thể truy cập biến trong phạm vi bao quanh nhờ closure.  
+B. Hàm ẩn danh là hàm không có tên khi được định nghĩa.  
+C. Hàm ẩn danh thường được gán vào biến hoặc truyền làm tham số cho hàm khác.  
+**D. Hàm ẩn danh được "nâng lên" (hoisted) giống như hàm khai báo (function declaration).**
+
+**Câu 9.2** Hàm mũi tên (arrow function) là gì? Phát biểu nào sau đây **không đúng** về hàm mũi tên?  
+A. Hàm mũi tên có cú pháp ngắn gọn, giúp viết mã dễ đọc hơn.  
+**B. Hàm mũi tên có this (ngữ cảnh) riêng, không kế thừa từ phạm vi bên ngoài.**  
+C. Hàm mũi tên không thể được dùng làm hàm tạo (constructor).  
+D. Hàm mũi tên không có biến arguments để truy cập danh sách tham số.
+
+**Câu 9.3** Lập trình bất đồng bộ là gì? Phát biểu nào sau đây **không đúng** về lập trình bất đồng bộ?  
+A. Lập trình bất đồng bộ cho phép chương trình thực hiện nhiều tác vụ cùng lúc mà không cần chờ đợi tác vụ trước đó hoàn thành.  
+B. Lập trình bất đồng bộ đặc biệt hữu ích khi xử lý các tác vụ tốn thời gian như yêu cầu mạng, đọc/ghi tập tin hoặc tương tác với cơ sở dữ liệu.  
+**C. Callback là một kỹ thuật bất đồng bộ, nó sẽ làm cho code dễ đọc và dễ bảo trì hơn khi code có nhiều callback lồng nhau.**  
+D. Async/await cho phép viết mã bất đồng bộ trông giống như mã đồng bộ, giúp mã trở nên dễ đọc và dễ hiểu hơn
+
+**Câu 10.2** Hàm callback trong JavaScript là gì? Phát biểu nào sau đây **không đúng**?  
+A. Hàm callback là một hàm được truyền vào một hàm khác như một tham số.  
+B. Hàm callback thường được sử dụng để xử lý các tác vụ bất đồng bộ.  
+C. Hàm callback có thể là hàm ẩn danh, hàm mũi tên hoặc hàm đã được định nghĩa trước.  
+**D. Hàm callback được thực thi ngay lập tức sau khi hàm "cha" bắt đầu thực hiện.**
+
+**Câu 10.3** Callback hell trong JavaScript là gì? Phát biểu nào sau đây **không đúng**?  
+A. Callback hell xảy ra khi có quá nhiều hàm callback lồng nhau, khiến mã nguồn khó đọc và bảo trì.  
+B. Callback hell thường xuất hiện khi xử lý các tác vụ bất đồng bộ phức tạp.  
+**C. Callback hell là một cách hiệu quả để quản lý các tác vụ bất đồng bộ trong JavaScript.**  
+D. Callback hell có thể được giải quyết bằng Promise hoặc async/await.
+
+**Câu 3.2** Phạm vi cấu hình định danh trong Git là gì? Phát biểu nào sau đây **không đúng**?  
+A. Phạm vi system áp dụng cho tất cả người dùng và kho lưu trữ trên hệ thống.  
+B. Phạm vi global áp dụng cho tài khoản người dùng hiện tại và tất cả kho lưu trữ mà người dùng đó làm việc.  
+**C. Phạm vi local áp dụng cho một kho lưu trữ cụ thể và có độ ưu tiên thấp nhất.**  
+D. Phạm vi local áp dụng cho một kho lưu trữ cụ thể và có độ ưu tiên cao nhất.
+
+**Câu 4.2** Ba khu vực làm việc chính của Git là gì? Phát biểu nào sau đây **không đúng**?  
+A. Thư mục làm việc (working directory) là nơi bạn chỉnh sửa tập tin trực tiếp.  
+**B. Khu tạm (staging area) là nơi lưu trữ lịch sử phiên bản của dự án.**  
+C. Kho chứa (repository) là nơi lưu trữ dữ liệu chính thức của dự án.  
+D. Lệnh git add được sử dụng để chuyển các thay đổi từ Thư mục làm việc sang Khu tạm (staging area).
+
+**Câu 4.3** Thư mục làm việc (working directory) trong Git là gì? Phát biểu nào sau đây **không đúng**?  
+A. Là thư mục thực tế trên máy tính, nơi bạn làm việc trực tiếp với các tập tin của dự án.  
+B. Là nơi bạn tạo, sửa, hoặc xóa tập tin trước khi đưa thay đổi vào .git.  
+**C. Là nơi lưu trữ lịch sử phiên bản và dữ liệu chính thức của dự án.**  
+D. Phản ánh các thay đổi so với commit cuối cùng, giúp bạn quyết định những gì cần thêm vào Khu tạm (staging area).
+
+**Câu 5.2** Khu tạm (staging area) trong Git là gì? Phát biểu nào sau đây **không đúng**?  
+A. Khu tạm là một khu vực trung gian giữa Thư mục làm việc (working directory) và Kho chứa (repository).  
+**B. Khu tạm là một thư mục vật lý trong Thư mục làm việc.**  
+C. Khu tạm cho phép bạn chọn lọc và tổ chức các thay đổi bạn muốn đưa vào commit tiếp theo.  
+D. Lệnh git rm --cached <tên_tập_tin> được sử dụng để gỡ bỏ tên tập tin ra khỏi Khu tạm.
+
+**Câu 5.3** gitignore là gì? Phát biểu nào sau đây **không đúng**?  
+**A. gitignore giúp thêm các tập tin không liên quan (ví dụ: node_modules, tập tin log) vào kho chứa.**  
+B. gitignore là một cơ chế trong Git, cho phép bạn chỉ định các tập tin hoặc thư mục mà Git sẽ bỏ qua khi thực hiện các lệnh như git add hoặc git status.  
+C. gitignore được thực hiện thông qua tập tin có tên là .gitignore, thường đặt ở thư mục gốc của dự án.  
+D. Mục đích của gitignore là loại bỏ các tập tin không cần thiết khỏi lịch sử phiên bản, như tập tin tạm, tập tin nhị phân, hoặc thư viện phụ thuộc.
+
+**Câu 5.4** Kho chứa (repository) trong Git là gì? Phát biểu nào sau đây **không đúng**?  
+A. Kho chứa là nơi lưu trữ tất cả các tập tin và lịch sử thay đổi của một dự án.  
+B. Thư mục .git trong dự án chính là Kho chứa.  
+C. Lệnh git commit được sử dụng để chuyển tập tin từ Thư mục làm việc (working directory) sang Kho chứa.  
+**D. Kho chứa cục bộ (local repository) là kho chứa được lưu trữ trên một máy chủ ở xa.**
+
+**Câu 5.5** Commit trong Git là gì? Phát biểu nào sau đây **không đúng**?  
+A. Commit là lệnh trong Git dùng để lưu các thay đổi từ Khu tạm vào Kho chứa.  
+B. Commit tạo ra một "ảnh chụp" (snapshot) mới trong lịch sử phiên bản.  
+**C. Commit dùng để chuyển tập tin từ Kho chứa sang Khu tạm.**  
+D. Mỗi commit đi kèm một thông điệp (message) mô tả thay đổi.
+
+**Câu 11.2** Free HTML template là gì? Phát biểu nào sau đây **không đúng**?  
+A. Free HTML template là các mẫu giao diện web được thiết kế sẵn, bao gồm HTML, CSS, và đôi khi JavaScript, được cung cấp miễn phí.  
+B. Free HTML template thường có giao diện đẹp, cấu trúc cơ bản (header, footer, sidebar), và phù hợp cho nhiều loại dự án như blog, portfolio, hoặc trang doanh nghiệp nhỏ.  
+**C. Sử dụng Free HTML template tốn nhiều thời gian, phù hợp cho các dự án lớn.**  
+D. Free HTML template cho phép bạn tùy chỉnh CSS, thay đổi nội dung (văn bản, hình ảnh), tích hợp back-end (như Node.js, PHP).
+
+**Câu 11.3** Static files (tập tin tĩnh) trong Express là gì? Phát biểu nào sau đây **không đúng**?  
+A. Static files là các tập tin không thay đổi nội dung hoặc không cần xử lý logic phía server.  
+B. Static files được gửi trực tiếp cho client thông qua middleware express.static.  
+C. Mục đích của static files là tối ưu hóa hiệu suất, tổ chức dự án và bảo mật.  
+**D. Không nên đặt các static files trong thư mục public**
+
+**Câu 12.1** Ứng dụng cục bộ là gì? Phát biểu nào sau đây **không đúng**?  
+A. Ứng dụng cục bộ chạy trực tiếp trên thiết bị của người dùng mà không cần kết nối liên tục với máy chủ ở xa.  
+**B. Ứng dụng cục bộ luôn yêu cầu kết nối internet ổn định để hoạt động hiệu quả.**  
+C. Ứng dụng cục bộ có thể truy cập trực tiếp vào các tài nguyên của thiết bị như hệ thống tập tin và phần cứng.  
+D. Dữ liệu của ứng dụng cục bộ thường được lưu trữ trên thiết bị của người dùng, giúp tăng cường bảo mật và quyền riêng tư.
+
+**Câu 12.2** Ứng dụng kiểu client-server là gì? Phát biểu nào sau đây **không đúng**?  
+A. Client tập trung chủ yếu vào việc hiển thị giao diện người dùng, trong khi server tập trung xử lý logic và dữ liệu.  
+B. Giao tiếp giữa client và server thường được thực hiện qua mạng, sử dụng các giao thức như HTTP, WebSocket hoặc TCP/IP.  
+**C. Client và server luôn phải chạy trên các thiết bị riêng biệt, không bao giờ có thể cùng chạy trên một máy tính.**  
+D. Server có nhiệm vụ nhận yêu cầu từ client, xử lý chúng, và gửi phản hồi lại cho client.
+
+**Câu 13.2** URL (Uniform Resource Locator) là gì? Phát biểu nào sau đây **không đúng**?  
+A. URL là một địa chỉ duy nhất xác định vị trí của một tài nguyên trên Internet.  
+B. URL bao gồm các thành phần như giao thức, tên miền, đường dẫn, truy vấn và phân mảnh.  
+C. Phần "truy vấn" (query) trong URL được sử dụng để truyền dữ liệu đến máy chủ thông qua các tham số.  
+**D. Giao thức "FTP" là giao thức phổ biến nhất được sử dụng trong URL để truy cập các trang web.**
+
+**Câu 14.3** Mô hình lập trình hướng sự kiện trong Node.js là gì? Phát biểu nào sau đây **không đúng**?  
+**A. Event Emitter liên tục kiểm tra hàng đợi sự kiện và thực thi các hàm callback khi có sự kiện xảy ra.**  
+B. Event là các hành động hoặc sự thay đổi trạng thái xảy ra trong ứng dụng.  
+C. Event Loop liên tục kiểm tra hàng đợi sự kiện và thực thi các hàm callback khi có sự kiện xảy ra.  
+D. Event Handler là các hàm được gọi khi một sự kiện xảy ra.
+
+**Câu 15.2** Mô hình lập trình hướng sự kiện của Express. Phát biểu nào sau đây **không đúng**?  
+A. Mỗi request từ client (như GET, POST, PUT, DELETE) được xem là một sự kiện (Event).  
+**B. Các module http, fs, stream là các Bộ quản lý sự kiện (Event Emitter) của Express.**  
+C. Express sử dụng Vòng lặp sự kiện (Event Loop) của trình duyệt để lắng nghe và xử lý các sự kiện theo kiểu bất đồng bộ (asynchronous), không chặn luồng (non-blocking).  
+D. Các route handler và middleware đóng vai trò như các Hàm xử lý sự kiện (Event Handler), được gọi khi sự kiện tương ứng xảy ra.
+
+**Câu 15.3** Route handler trong Express là gì? Phát biểu nào sau đây **không đúng**?  
+A. Route handler chỉ được gọi khi request khớp với route và HTTP method đã định nghĩa.  
+B. Route handler thường chứa logic nghiệp vụ như truy vấn cơ sở dữ liệu hoặc xử lý dữ liệu.  
+C. Route handler có thể chuyển tiếp request sang middleware hoặc handler tiếp theo bằng hàm next().  
+**D. Chỉ có duy nhất một Route handler được gắn vào một route.**
+
+**Câu 15.4** Middleware trong Express là gì? Phát biểu nào sau đây **không đúng**?  
+A. Middleware là các hàm được thực thi trong quá trình xử lý một HTTP request, trước hoặc sau Route handler.  
+B. Xử lý request (như xác thực, ghi log).  
+C. Sửa đổi đối tượng req hoặc res.  
+**D. Middleware nhận 2 tham số: req, res.**
+
+**Câu 16.1** Trang web động là gì. Phát biểu nào sau đây **không đúng**?  
+A. Nội dung hiển thị có thể khác nhau tùy thuộc vào người dùng truy cập.  
+**B. Nội dung trang web luôn cố định và không thay đổi theo thời gian.**  
+C. Giao diện có khả năng cập nhật một phần mà không cần tải lại toàn bộ trang.  
+D. Trang web có thể tương tác với người dùng theo thời gian thực.
+
+**Câu 16.2** Ưu điểm của SSR (Server-Side Rendering) là gì? Phát biểu nào dưới đây **KHÔNG đúng**?  
+A. Tối ưu hóa SEO vì các công cụ tìm kiếm có thể thu thập và lập chỉ mục nội dung dễ dàng hơn nhờ nội dung đầy đủ trong mã HTML.  
+B. Tăng tốc độ tải trang ban đầu, giúp người dùng thấy nội dung nhanh hơn, đặc biệt trên thiết bị di động hoặc mạng chậm.  
+C. Hỗ trợ tốt cho thiết bị cấu hình yếu bằng cách giảm tải việc thực thi JavaScript trên thiết bị.  
+**D. Loại bỏ hoàn toàn sự phụ thuộc vào JavaScript để hiển thị nội dung trang web.**
+
+**Câu 16.3** Nhược điểm của CSR (Client-Side Rendering) là gì? Phát biểu nào dưới đây **KHÔNG đúng**?  
+**A. CSR luôn tiêu tốn nhiều tài nguyên server hơn so với SSR để hiển thị nội dung trang web.**  
+B. SEO không tốt vì các công cụ tìm kiếm có thể gặp khó khăn trong việc thu thập và lập chỉ mục nội dung được tạo bởi JavaScript.  
+C. Tốc độ tải trang ban đầu chậm do người dùng phải chờ trình duyệt tải và thực thi tập tin JavaScript trước khi thấy nội dung.  
+D. Yêu cầu thiết bị người dùng phải mạnh để xử lý tốt các tác vụ JavaScript.
+
+**Câu 17.1** Express-handlebars là một _________được tích hợp vào framework Express để tạo ra “HTML động” từ phía server.  
+A. client-side template engine  
+B. server-side template machine  
+C. server-site template engine  
+**D. server-side template engine**
+
+**Câu 1.1** Trong lĩnh vực Công nghệ Thông tin, dữ liệu là gì? Phát biểu nào sau đây **không đúng**?  
+**A. Dữ liệu thô (raw data) đã có ngữ cảnh và ý nghĩa, không cần phải thông dịch (xử lý) để trở thành thông tin.**  
+B. Dữ liệu là một chuỗi gồm một hoặc nhiều ký hiệu, như chữ cái, số, ký hiệu đặc biệt.  
+C. Ở mức lưu trữ thấp nhất (cấp độ phần cứng), mọi dữ liệu trong máy tính đều được biểu diễn bằng bit (binary digits) – tức là 0 và 1.  
+D. Dữ liệu được lưu trữ trên ổ đĩa (HDD, SSD) hoặc các thiết bị khác như RAM, đám mây.
+
+**Câu 1.2** Cơ sở dữ liệu (database) là gì? Phát biểu nào sau đây **không đúng**?  
+A. Cơ sở dữ liệu là một tập hợp dữ liệu được tổ chức, lưu trữ và quản lý một cách có hệ thống trên máy tính.  
+**B. Cơ sở dữ liệu làm tăng sự trùng lặp thông tin lên mức cao nhất.**  
+C. Cơ sở dữ liệu giúp người dùng dễ dàng truy cập, quản lý, khai thác và cập nhật thông tin.  
+D. Cơ sở dữ liệu cho phép nhiều người cùng sử dụng một lúc.
+
+**Câu 1.3** DBMS là gì? Phát biểu nào sau đây **không đúng**?  
+A. DBMS là phần mềm cho phép người dùng tạo, quản lý và truy xuất dữ liệu trong CSDL.  
+B. DBMS cung cấp các công cụ để định nghĩa cấu trúc dữ liệu, nhập dữ liệu, truy vấn dữ liệu và bảo mật dữ liệu.  
+C. MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server, MongoDB là các ví dụ về DBMS.  
+**D. DBMS chỉ hỗ trợ các mô hình dữ liệu quan hệ, không hỗ trợ mô hình phi quan hệ.**
+
+**Câu 1.4** Theo “Tháp xử lý thông tin”, quá trình chuyển đổi dữ liệu được thực hiện theo thứ tự nào?  
+A. Data > Knowledge > Information > Wisdom  
+B. Information > Data > Knowledge > Wisdom  
+C. Data > Information > Wisdom > Knowledge  
+**D. Data > Information > Knowledge > Wisdom**
+
+**Câu 2.2** RDBMS là gì? Phát biểu nào sau đây **không đúng**?  
+A. RDBMS là viết tắt của Relational Database Management System - Hệ quản trị CSDL quan hệ.  
+B. RDBMS là một DBMS dùng để quản lý CSDL theo Mô hình quan hệ.  
+C. MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server và IBM DB2 là các ví dụ về RDBMS.  
+**D. RDBMS chỉ hỗ trợ các loại dữ liệu phi cấu trúc, không hỗ trợ dữ liệu có cấu trúc.**
+
+**Câu 2.3** SQL Server là gì? Phát biểu nào sau đây **không đúng**?  
+A. SQL Server là một hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) do Microsoft phát triển.  
+**B. SQL Server không có các công cụ phân tích dữ liệu, không thể tích hợp các công cụ phân tích dữ liệu.**  
+C. SQL Server tuân thủ mô hình quan hệ, tổ chức dữ liệu thành các bảng với các hàng và cột.  
+D. SQL Server có nhiều phiên bản khác nhau, từ phi
+
+**Câu 3.2** Hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) bao gồm những thành phần nào? Phát biểu nào sau đây **không đúng**?  
+**A. Công cụ đồ họa (SQL Server Management Studio - SSMS) dùng để vẽ các hình khối cơ bản.**  
+B. Công cụ cơ sở dữ liệu (Database engine) là thành phần cốt lõi, chịu trách nhiệm lưu trữ và quản lý dữ liệu.  
+C. Công cụ dòng lệnh (sqlcmd) cho phép làm việc với Database engine thông qua Command Prompt hoặc PowerShell.  
+D. RDBMS còn bao gồm các công cụ quản lý khác, dịch vụ nền, thư viện và các tính năng bổ sung.
+
+**Câu 3.3** Một số mục quan trọng của cửa sổ Connect to Server là gì? Phát biểu nào sau đây **không đúng**?  
+A. Server type cho phép chọn loại máy chủ SQL Server muốn kết nối  
+B. Server name là mục nhập tên hoặc địa chỉ IP của máy chủ SQL Server.  
+**C. Authentication cho phép chọn phương thức xác thực. Kiểu xác thực SQL Server Authentication sử dụng thông tin đăng nhập của Windows.**  
+D. Có 2 kiểu xác thực là Windows Authentication và SQL Server Authentication.
+
+**Câu 4.1** Khi tạo bảng trong cơ sở dữ liệu, một số ràng buộc thường được sử dụng. Phát biểu nào sau đây **không đúng**?  
+A. NOT NULL đảm bảo cột không được phép có giá trị NULL.  
+B. FOREIGN KEY chỉ định cột là khóa chính của bảng khác.  
+C. PRIMARY KEY chỉ định cột là khóa chính, giá trị phải duy nhất và không được NULL.  
+D. UNIQUE đảm bảo giá trị của cột là duy nhất.
+
+**Câu 4.2** Khi tạo bảng trong cơ sở dữ liệu, một số kiểu dữ liệu thường được sử dụng. Phát biểu nào sau đây **không đúng**?  
+**A. CHAR(n) dùng để lưu trữ chuỗi ký tự có độ dài thay đổi.**  
+B. INT dùng để lưu trữ số nguyên.  
+C. VARCHAR(n) dùng để lưu trữ chuỗi ký tự có độ dài tối đa là n.  
+D. DATE dùng để lưu trữ ngày tháng năm.
+
+**Câu 5.1** Khóa chính (primary key) là gì? Phát biểu nào sau đây **không đúng**?  
+A. Khóa chính dùng để xác định duy nhất mỗi bản ghi trong một bảng.  
+**B. Giá trị của khóa chính có thể trùng lặp.**  
+C. Mỗi bảng chỉ có một khóa chính.  
+D. Giá trị của khóa chính không được mang giá trị NULL.
+
+**Câu 5.2** Khóa ngoại (foreign key) là gì? Phát biểu nào sau đây **không đúng**?  
+A. Khóa ngoại được sử dụng để liên kết hai bảng với nhau.  
+B. Khóa ngoại của một bảng tham chiếu đến khóa chính của một bảng khác.  
+C. Khóa ngoại giúp đảm bảo tính toàn vẹn tham chiếu giữa các bảng.  
+**D. Khóa ngoại dùng để xác định duy nhất mỗi bản ghi trong một bảng.**
+
+**Câu 6.2** Phép chọn (SELECT) trong SQL được sử dụng để làm gì? Phát biểu nào sau đây **không đúng**?  
+A. Lệnh SELECT cho phép lấy dữ liệu từ các cột cụ thể hoặc tất cả các cột trong một bảng.  
+B. Mệnh đề WHERE được sử dụng để lọc dữ liệu dựa trên các điều kiện cụ thể.  
+**C. Mệnh đề ORDER BY được sử dụng để nhóm các bản ghi có giá trị giống nhau trong một cột.**  
+D. Mệnh đề GROUP BY cho phép nhóm các bản ghi có giá trị giống nhau trong một cột.
