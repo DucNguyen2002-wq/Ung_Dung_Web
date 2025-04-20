@@ -67,7 +67,7 @@ Hoặc,
   - **C. Một trang web chứa nhiều website**
   - D. Một website chứa nhiều trang web có liên quan đến nhau
 
- - **Câu 1.4** Phát biểu nào không đúng khi nói về website và ứng dụng web?
+- **Câu 1.4** Phát biểu nào không đúng khi nói về website và ứng dụng web?
   - A. Không có sự phân biệt rõ ràng giữa website và ứng dụng web
   - B. Một website và ứng dụng web có một địa chỉ URL để truy cập
   - C. Website và ứng dụng web hoạt động dựa trên mô hình client-server
