@@ -50,7 +50,7 @@ Hoặc,
   - Thiết kế
   - Lập trình
   - Triển khai
-  - Bảo trì và cập nhật
+  - Bảo trì và cập nhật  
 ![image](https://github.com/user-attachments/assets/317d7f44-134e-4455-b645-a996f944ccdf)
 
 #### 1.2.1 Một số cách để tạo ra ứng dụng web
