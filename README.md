@@ -3,12 +3,12 @@
 * Thầy Lê Gia Công
 ## 
 ## Web back-end
-#### 1. Một số khái niệm  
-##### 1.1 Web là gì?  
+## 1. Một số khái niệm  
+### 1.1 Web là gì?  
 
 - Web hay WWW là từ viết tắt của World Wide Web là mạng lưới thông tin toàn cầu. Web hoạt động dựa trên hạ tầng là Internet. Web bao gồm rất nhiều các trang web kết nối lại với nhau, với thông tin đa dạng như văn bản, hình ảnh, âm thanh, video, và nhiều loại dữ liệu khác.
 
-##### 1.2 Trang web là gì?  
+### 1.2 Trang web là gì?  
 
 - Trang web (webpage, web page) là một trang tài liệu trên hệ thống web. Trang web có thể chứa văn bản, hình ảnh, âm thanh, video, và các nội dung đa phương tiện khác.  
 - **Thêm một số thông tin về trang web:**
@@ -21,7 +21,7 @@
 Hoặc,  
   - Mở một trang web bằng trình duyệt -> Chuột phải vào vùng nội dung trang web -> Chọn mục Inspect -> Vào các tab: Elements, Styles, Sources để xem mã nguồn
 
-##### 1.3 Website là gì?  
+### 1.3 Website là gì?  
 
 - Website là một tập hợp nhiều trang web có liên quan đến nhau, có một địa chỉ URL duy nhất. Xem hình minh họa:  
 ![image](https://github.com/user-attachments/assets/9b4d3272-e5ca-4864-b677-289016d125fe)  
@@ -29,7 +29,7 @@ Hoặc,
 - Mã nguồn của website chính là mã nguồn của mỗi trang web thành viên, được đặt trên máy web server.  
 - Có thể truy cập các website bằng mạng công cộng (Internet) hoặc mạng nội bộ (LAN), thậm chí trên máy cục bộ thông qua địa chỉ URL của nó.
 
-##### 1.4 Ứng dụng web là gì?
+### 1.4 Ứng dụng web là gì?
 
 - **Ứng dụng web** (web application hay web app) là một loại ứng dụng mà người dùng có thể truy cập và sử dụng thông qua Internet, mạng nội bộ, hoặc trên máy cục bộ bằng trình duyệt web.
 
