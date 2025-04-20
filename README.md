@@ -30,7 +30,7 @@ Hoặc,
 ** Ứng dụng web hoạt động dựa trên mô hình client-server  
 ** Không có sự phân biệt rõ ràng giữa website và ứng dụng web  
 * Một số loại ứng dụng web: thư điện tử, bán hàng trực tuyến, diễn đàn, nhật kí mạng, bản đồ, quản lý nhân lực, quản lý y tế và chăm sóc sức khỏe.  
-* Sự khác nhau giữa website và ứng dụng web:
+* Sự khác nhau giữa website và ứng dụng web:  
 | Website                                                               | Ứng dụng web                                                              |
 |------------------------------------------------------------------------|---------------------------------------------------------------------------|
 | – Người dùng tương tác, nội dung chủ yếu từ nhà phát triển           | – Dữ liệu chủ yếu do người dùng đóng góp                                 |
