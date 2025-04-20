@@ -31,7 +31,7 @@ Một số đặc điểm của ứng dụng web:
 - Không có sự phân biệt rõ ràng giữa website và ứng dụng web  
 Một số loại ứng dụng web: thư điện tử, bán hàng trực tuyến, diễn đàn, nhật kí mạng, bản đồ, quản lý nhân lực, quản lý y tế và chăm sóc sức khỏe.  
 Sự khác nhau giữa website và ứng dụng web:  
-| Website                                                                 | Ứng dụng web                                                                 |
-|------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| Website                                                                 | Ứng dụng web                                                                 |  
+|------------------------------------------------------------------------|------------------------------------------------------------------------------|  
 | – Cho phép người dùng tương tác và thêm nội dung, tuy nhiên phần lớn nội dung vẫn là do nhà phát triển tạo ra.<br>– Ít phức tạp và dễ phát triển hơn so với ứng dụng web. | – Hoạt động dựa trên sự tương tác từ người dùng, hầu hết nội dung và dữ liệu là do người dùng đóng góp.<br>– Giống như một ứng dụng máy tính.<br>– Phức tạp và cần nhiều kĩ năng hơn để phát triển so với website. |
 
