@@ -23,17 +23,30 @@ Hoặc,
 * Có thể truy cập vào website của Wikipedia, Python, React để quan sát địa chỉ URL của website và địa chỉ URL các trang web của mỗi website.  
 * Mã nguồn của website chính là mã nguồn của mỗi trang web thành viên, được đặt trên máy web server.  
 * Có thể truy cập các website bằng mạng công cộng (Internet) hoặc mạng nội bộ (LAN), thậm chí trên máy cục bộ thông qua địa chỉ URL của nó.  
-##### 1.4 Ứng dụng web là gì?  
-* Ứng dụng web (web application hay web app) là một loại ứng dụng mà người dùng có thể truy cập và sử dụng thông qua Internet hoặc mạng nội bộ (hoặc trên máy cục bộ) bằng trình duyệt web.  
-* Một số đặc điểm của ứng dụng web:  
-** Mã nguồn của ứng dụng web được để trên máy server, giao diện ứng dụng web được hiển thị trên trình duyệt  
-** Ứng dụng web hoạt động dựa trên mô hình client-server  
-** Không có sự phân biệt rõ ràng giữa website và ứng dụng web  
-* Một số loại ứng dụng web: thư điện tử, bán hàng trực tuyến, diễn đàn, nhật kí mạng, bản đồ, quản lý nhân lực, quản lý y tế và chăm sóc sức khỏe.  
-* Sự khác nhau giữa website và ứng dụng web:  
-| Website                                                               | Ứng dụng web                                                              |
-|------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| – Người dùng tương tác, nội dung chủ yếu từ nhà phát triển           | – Dữ liệu chủ yếu do người dùng đóng góp                                 |
-| – Ít phức tạp, dễ phát triển                                          | – Giống ứng dụng máy tính, phát triển phức tạp hơn                       |
+##### 1.4 Ứng dụng web là gì?
+
+- **Ứng dụng web** (web application hay web app) là một loại ứng dụng mà người dùng có thể truy cập và sử dụng thông qua Internet, mạng nội bộ, hoặc trên máy cục bộ bằng trình duyệt web.
+
+- **Một số đặc điểm của ứng dụng web:**
+  - Mã nguồn của ứng dụng web được lưu trữ trên máy chủ (server), còn giao diện được hiển thị trên trình duyệt.
+  - Ứng dụng hoạt động dựa trên mô hình client-server.
+  - Không có sự phân biệt rõ ràng giữa website và ứng dụng web.
+
+- **Một số loại ứng dụng web:**
+  - Thư điện tử
+  - Bán hàng trực tuyến
+  - Diễn đàn
+  - Nhật ký mạng (blog)
+  - Bản đồ
+  - Quản lý nhân lực
+  - Quản lý y tế và chăm sóc sức khỏe
+
+- **Sự khác nhau giữa website và ứng dụng web:**
+
+| Website                                                                 | Ứng dụng web                                                               |
+|-------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| – Người dùng tương tác, nội dung chủ yếu từ nhà phát triển              | – Dữ liệu chủ yếu do người dùng đóng góp                                  |
+| – Ít phức tạp, dễ phát triển                                            | – Giống ứng dụng máy tính, phát triển phức tạp và yêu cầu nhiều kỹ năng hơn |
+
 
 
