@@ -18,4 +18,19 @@ Thêm một số thông tin về trang web:
 Hoặc,  
 - Mở một trang web bằng trình duyệt -> Chuột phải vào vùng nội dung trang web -> Chọn mục Inspect -> Vào các tab: Elements, Styles, Sources để xem mã nguồn  
 ##### 1.3 Website là gì?  
-Website là một tập hợp nhiều trang web có liên quan đến nhau, có một địa chỉ URL duy nhất. Xem hình minh họa:
+Website là một tập hợp nhiều trang web có liên quan đến nhau, có một địa chỉ URL duy nhất. Xem hình minh họa:  
+![image](https://github.com/user-attachments/assets/9b4d3272-e5ca-4864-b677-289016d125fe)  
+Có thể truy cập vào website của Wikipedia, Python, React để quan sát địa chỉ URL của website và địa chỉ URL các trang web của mỗi website.  
+Mã nguồn của website chính là mã nguồn của mỗi trang web thành viên, được đặt trên máy web server.  
+Có thể truy cập các website bằng mạng công cộng (Internet) hoặc mạng nội bộ (LAN), thậm chí trên máy cục bộ thông qua địa chỉ URL của nó.  
+##### 1.4 Ứng dụng web là gì?  
+Ứng dụng web (web application hay web app) là một loại ứng dụng mà người dùng có thể truy cập và sử dụng thông qua Internet hoặc mạng nội bộ (hoặc trên máy cục bộ) bằng trình duyệt web.  
+Một số đặc điểm của ứng dụng web:  
+- Mã nguồn của ứng dụng web được để trên máy server, giao diện ứng dụng web được hiển thị trên trình duyệt  
+- Ứng dụng web hoạt động dựa trên mô hình client-server  
+- Không có sự phân biệt rõ ràng giữa website và ứng dụng web  
+Một số loại ứng dụng web: thư điện tử, bán hàng trực tuyến, diễn đàn, nhật kí mạng, bản đồ, quản lý nhân lực, quản lý y tế và chăm sóc sức khỏe.  
+Sự khác nhau giữa website và ứng dụng web:  
+| Website                     | Ứng dụng web     |  |  |
+|-------------------------|----------|--|--|
+| – Cho phép người dùng tương tác và thêm nội dung, tuy nhiên phần lớn nội dung vẫn là do nhà phát triển tạo ra.<br>– Ít phức tạp và dễ phát triển hơn so với ứng dụng web.              | – Hoạt động dựa trên sự tương tác từ người dùng, hầu hết nội dung và dữ liệu là do người dùng đóng góp<br>– Giống như một ứng dụng máy tính<br>– Phức tạp và cần nhiều kĩ năng hơn để phát triển so với website  | | 
