@@ -951,16 +951,16 @@ app.get('/:page', (req, res) =>{
     - Phạm vi này áp dụng cho tất cả người dùng và tất cả kho lưu trữ trên hệ thống
     - Tập tin cấu hình được lưu tại C:\Program Files\Git\etc (trên Windows).
     - Cần quyền quản trị hệ thống để thực hiện cấu hình ở mức này.
-    - Để cấu hình, sử dụng tham số --system với lệnh git config. Ví dụ: git config --system user.name "NH1Tkendo"
+    - Để cấu hình, sử dụng tham số --system với lệnh git config. Ví dụ: git config --system user.name "AnhDuc"
   - global (phạm vi người dùng):
     - Phạm vi này áp dụng cho tài khoản người dùng hiện tại và cho tất cả kho lưu trữ mà người dùng đó làm việc.
     - Tập tin cấu hình được lưu tại C:\Users<tên_người_dùng>.gitconfig (trên Windows).
     - Đây là phạm vi cấu hình được sử dụng nhiều nhất.
-    - Để cấu hình, sử dụng tham số --global với lệnh git config. Ví dụ: git config --global user.name "NH1Tkendo"
+    - Để cấu hình, sử dụng tham số --global với lệnh git config. Ví dụ: git config --global user.name "AnhDuc"
   - local (phạm vi kho lưu trữ, repo)
     - Phạm vi này áp dụng cho một kho lưu trữ cụ thể.
     - Tập tin cấu hình được lưu tại .git/config trong thư mục gốc của kho lưu trữ
-    - Để cấu hình, sử dụng lệnh git config mà không có tham số --system hoặc --global. Tất nhiên, bạn phải di chuyển dấu nhắc chuột vào thư mục gốc của kho lưu trữ, để gõ lệnh. Ví dụ: git config user.name "NH1Tkendo"
+    - Để cấu hình, sử dụng lệnh git config mà không có tham số --system hoặc --global. Tất nhiên, bạn phải di chuyển dấu nhắc chuột vào thư mục gốc của kho lưu trữ, để gõ lệnh. Ví dụ: git config user.name "AnhDuc"
 - **Xem thông tin cấu hình**
   - Để xem thông tin cấu hình, sử dụng lệnh: git config --list
   - Tùy thuộc vào vị trí dấu nhắc chuột bạn sẽ xem được thông tin cấu hinh ở các phạm vi khác nhau (system, global hay local).
