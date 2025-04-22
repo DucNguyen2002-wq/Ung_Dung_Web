@@ -777,8 +777,8 @@ app.get('/',(req, res) => {
   - Trả về client: server gửi HTML hoàn chỉnh về trình duyệt để hiển thị.
 - **Một ví dụ đơn giản khi sử dụng template:**
   - Template: <h1>Hello {{name}}</h1>
-  - Dữ liệu: { name: "Ngô Bá Tài" }
-  - Kết quả HTML hoàn chỉnh: <h1>Hello Ngô Bá Tài</h1>
+  - Dữ liệu: { name: "Anh Đức" }
+  - Kết quả HTML hoàn chỉnh: <h1>Hello Anh Đức</h1>
 - **Ưu điểm khi sử dụng template engine:**
   - Tạo giao diện động: hiển thị nội dung thay đổi dựa trên dữ liệu (danh sách sản phẩm, thông tin người dùng).
   - Tách biệt logic xử lý và giao diện: backend xử lý dữ liệu, template engine xử lý hiển thị.
