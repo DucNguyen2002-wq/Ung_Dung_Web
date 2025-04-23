@@ -443,8 +443,22 @@ Như vậy, URL http://localhost:9000/
 - Web server có địa chỉ là localhost
 - Gửi request vào cổng 9000 của web server
 - Gửi request  
-Ngoài việc dùng thanh địa chỉ của trình duyệt để gửi request, chúng ta còn có 2 cách khác để gửi request là web form và hàm JavaScript (AJAX, fetch). Chúng ta sẽ tìm hiểu về web form, AJAX, fetch ở các phần sau.
-
+Ngoài việc dùng thanh địa chỉ của trình duyệt để gửi request, chúng ta còn có 2 cách khác để gửi request là web form và hàm JavaScript (AJAX, fetch). Chúng ta sẽ tìm hiểu về web form, AJAX, fetch ở các phần sau.  
+Cú pháp của một URL:  
+protocol://domain:port/path?query#fragment  
+Giải thích các thành phần của một URL:  
+- protocol (giao thức): xác định phương thức giao tiếp mà trình duyệt sử dụng để giao tiếp với server. Các giao thức phổ biến bao gồm http (Hypertext Transfer Protocol) và https (Hypertext Transfer Protocol Secure).  
+- domain (tên miền): tên của máy server. Ví dụ: google.com, wikipedia.org, localhost.  
+- port (cổng) (tùy chọn): số cổng mà server sử dụng để lắng nghe yêu cầu (request). Cổng mặc định cho http là 80 và cho https là 443.  
+- path (đường dẫn): đường dẫn đến một vị trí (thư mục, tập tin, API) trên server. Ví dụ: /images/logo.png, /articles/how-to-use-url, /users.  
+- query (truy vấn) (tùy chọn): chuỗi các tham số được sử dụng để truyền dữ liệu đến server. Ví dụ: ?name=shoes&size=40.  
+- fragment (phân mảnh) (tùy chọn): một phần cụ thể của tài nguyên, thường là một phần của trang HTML. Ví dụ: #section-2.  
+Như vậy, URL http://localhost:9000/?name=shoes&size=40  
+Có nghĩa là:  
+- Client sử dụng giao thức http để gửi request tới web server  
+- Web server có địa chỉ là localhost  
+- Gửi request vào cổng 9000 của web server  
+- Gửi request, có kèm theo 2 tham số là name=shoes và size=40  
 #### 1.11.2 Gửi response về client
 - **Bước 3:** web server nhận request, Bước [4] phân tích, xử lý request, Bước [5] gửi kết quả (response) về cho client  
 Tại web server, chúng ta sử dụng phương thức GET của Express để nhận và xử lý các HTTP request kiểu GET (request gửi bằng giao thức HTTP) do client gửi tới.  
