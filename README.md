@@ -1209,7 +1209,8 @@ Cụ thể, khi cài đặt SQL Server, bạn đã cài đặt các thành phầ
 
 - Các công cụ quản lý khác, dịch vụ nền, thư viện và các tính năng bổ sung khác.
 
-![image](md_assets/rdbms.jpg)
+![image](https://github.com/user-attachments/assets/3c866fc4-7c42-44ca-9fd6-2df3268e2939)
+
 #### 3.2.3 Khóa chính và Khóa ngoại
 Khóa (key) là gì?
 
@@ -1288,11 +1289,18 @@ Migration là các tập tin JavaScript chứa mã nguồn để thực hiện c
 Postgresql sẽ tự chạy dưới dạng một dịch vụ (services), chứ không phải chạy như một chương trình có giao diện (như Microsoft Word). Điều này có nghĩa là nó hoạt động liên tục trong nền (background) để xử lý các yêu cầu truy vấn cơ sở dữ liệu mà không cần giao diện người dùng.
 
 **Làm việc với Postgresql**
-Gõ lệnh ```psql -U postgres``` để sử dụng
+- Dùng công cụ GUI: pgAdmin  
+- Cũng như psql, công cụ pgAdmin cũng được cài đặt cùng với quá trình cài Postgresql.  
+- Vào menu Start của Windows để tìm và khởi chạy pgAdmin..  
+![image](https://github.com/user-attachments/assets/1526ce4c-bfb9-4f5d-be2e-2139f533f3ab)  
 
-Nếu đăng nhập thành công, dấu nhắc lệnh sẽ chuyển từ > thành #:
+Kết nối tới Postgresql:  
+- Vào menu Object > chọn Connect Server.  
+- Nhập mật khẩu cho user (postgres), ví dụ: p@ssword1
+![image](https://github.com/user-attachments/assets/e99ae98f-1373-401b-bc74-3d3e7bd86ce6)
 
-![image](md_assets/postpres.png)
+- Vậy là đã có thể sử dụng pgAdmin để tạo cơ sở dữ liệu, tạo bảng, chèn dữ liệu, truy vấn dữ liệu với Postgresql.  
+- Để kết thúc phiên làm việc, bạn vào menu Object > chọn Disconnect from server để ngắt kết nối tới Postgresql.  
 
 Cũng như các hệ quản trị cơ sở dữ liệu khác (Mysql, SQL server), bạn cũng có 3 cách để kết nối và làm việc với Postgresql:
 - Dùng công cụ dòng lệnh: psql.
