@@ -1124,386 +1124,900 @@ This commit addresses a bug where users were unable to log in due to an incorrec
 - Added unit tests to verify the fix.
 ```
 
+## Chương 3: CSDL thực hành
+### 3.1 Dữ liệu và CSDL
+#### 3.1.1 Dữ liệu là gì
+- Một chuỗi gồm một hoặc nhiều ký hiệu (sequence of one or more symbols), như chữ cái, số, ký hiệu đặc biệt (ví dụ: A, 1, $). Đây là cách dữ liệu được biểu diễn ở mức người dùng hoặc mức trừu tượng cao hơn, trước khi máy tính xử lý. Ví dụ, chuỗi "123" hoặc "Xin chào" là dữ liệu dạng ký hiệu mà con người nhập vào hệ thống. Ở mức cơ bản (mức máy tính xử lý), các ký hiệu này sẽ được mã hóa để máy tính hiểu.
+
+- Ở mức lưu trữ thấp nhất (cấp độ phần cứng), mọi dữ liệu trong máy tính đều được biểu diễn bằng bit (binary digits) – tức là 0 và 1. Đây là ngôn ngữ cơ bản mà máy tính sử dụng để lưu trữ và xử lý. Ví dụ: chuỗi "Xin chào” sẽ được mã hóa thành một dãy bit (ví dụ: 01011000  01101001 trong mã ASCII cho chữ "X" và "i"). Tất cả văn bản, hình ảnh, âm thanh cuối cùng đều quy về nhị phân.
+
+- Cần được thông dịch (diễn dịch, xử lý) để trở thành thông tin. Dữ liệu thô (raw data) chỉ là tập hợp ký hiệu hoặc số liệu, không có ý nghĩa cho đến khi được xử lý hoặc diễn dịch để trở thành thông tin (information) – dữ liệu có ngữ cảnh và ý nghĩa. Ví dụ, số "19" là dữ liệu; khi được diễn dịch là "tuổi của bạn", nó trở thành thông tin. Máy tính hoặc con người cần xử lý dữ liệu để hiểu và sử dụng nó.
+
+- Biểu diễn số lượng, tính chất của các đối tượng hoặc chỉ dẫn hoạt động. Ví dụ, biểu diễn số lượng: "5" là số sản phẩm trong kho; biểu diễn tính chất: "đỏ" là màu của một chiếc xe; chỉ dẫn hoạt động: mã lệnh "1010" yêu cầu CPU thực hiện phép cộng.
+
+- Dữ liệu được lưu trữ trên ổ đĩa (HDD, SSD) hoặc các thiết bị khác như RAM, đám mây
+
+- Được tổ chức theo dạng cấu trúc, bán cấu trúc hoặc không cấu trúc.
+
+#### 3.1.2 Cơ sở dữ liệu là gì
+Cơ sở dữ liệu (database) là một tập hợp dữ liệu được tổ chức, lưu trữ và quản lý một cách có hệ thống trên máy tính, để bạn có thể dễ dàng truy cập, thêm, sửa, xóa hoặc tìm kiếm thông tin khi cần. Hãy nghĩ về CSDL như một "kho lưu trữ thông minh".
+Ưu điểm khi sử dụng cơ sở dữ liệu:
+- Giúp người dùng dễ dàng truy cập, quản lý, khai thác và cập nhật thông tin
+- Giảm sự trùng lặp thông tin xuống mức thấp nhất
+- Có thể truy xuất thông tin theo nhiều cách
+- Cho phép nhiều người cùng sử dụng một lúc
+- Tăng tính bảo mật cho dữ liệu
+- Tăng tính toàn vẹn dữ liệu
+- Khả năng mở rộng dễ dàng
+#### 3.1.3 Làm việc với CSDL
+Khi làm việc với CSDL, chúng ta quan tâm tới 3 thành phần sau:
+- Dữ liệu
+- Cách thức tổ chức dữ liệu
+- Phần mềm quản lý CSDL
+
+**Dữ liệu**
+Dữ liệu là tập hợp các thông tin thô (raw facts) được thu thập, lưu trữ và xử lý trong cơ sở dữ liệu. Đây là thành phần cốt lõi, đại diện cho các giá trị thực tế mà hệ thống cần quản lý. Dữ liệu có thể ở dạng số, văn bản, hình ảnh, âm thanh, hoặc bất kỳ định dạng nào khác tùy thuộc vào mục đích sử dụng.
+
+* Đặc điểm:
+- Nguyên bản: chưa qua xử lý hoặc tổ chức thành thông tin có ý nghĩa.
+- Đa dạng: có thể là dữ liệu có cấu trúc (structured), bán cấu trúc (semi-structured), hoặc không cấu trúc (unstructured).
+- Nguồn gốc: được thu thập từ người dùng, hệ thống, cảm biến, hoặc các nguồn khác.
+**Cách thức tổ chức dữ liệu**
+  Có hai mô hình tổ chức dữ liệu đang được sử dụng phổ biến, gồm:
+- Mô hình quan hệ (relational model): dữ liệu được tổ chức dưới dạng các bảng
+- Mô hình phi quan hệ (noSQL): dữ liệu được tổ chức dưới dạng phi cấu trúc, hoặc bán cấu trúc như JSON, XML.
+**Phần mềm quản lý CSDL**
+Khi đã có cơ sở dữ liệu (CSDL), bao gồm dữ liệu và mô hình tổ chức dữ liệu, chúng ta cần sử dụng các công cụ (phần mềm) để chuyển CSDL vào hệ thống máy tính.
+
+Phần mềm đảm nhận vai trò này được gọi là Phần mềm quản lý CSDL, hay còn được gọi là Hệ quản trị CSDL (Database Management System - DBMS).
+
+Hệ quản trị CSDL (DBMS) là một phần mềm chuyên dụng, cho phép người dùng thực hiện các thao tác như tạo lập, quản lý và truy xuất dữ liệu trong CSDL. DBMS cung cấp các công cụ hỗ trợ định nghĩa cấu trúc dữ liệu, nhập liệu, thực hiện truy vấn dữ liệu, đồng thời đảm bảo tính bảo mật cho dữ liệu được lưu trữ.
+
+Một số DBMS phổ biến:
+- MySQL
+- PostgreSQL
+- Oracle Database
+- Microsoft SQL Server
+- MongoDB(NoSQL)
+### 3.2 DBMS
+Phần mềm quản lý CSDL (hay Hệ quản trị cơ sở dữ liệu, DataBase Management System), gọi tắt là DBMS, là một phần mềm chuyên dụng, cho phép người dùng thực hiện các thao tác như tạo lập, quản lý và truy xuất dữ liệu trong CSDL. 
+
+DBMS cung cấp các công cụ hỗ trợ để định nghĩa cấu trúc dữ liệu, nhập liệu, thực hiện truy vấn dữ liệu, đồng thời đảm bảo tính bảo mật cho dữ liệu được lưu trữ.
+
+Một số DBMS phổ biến gồm: MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server, MongoDB (NoSQL). 
+#### 3.2.1 RDBMS là gì
+RDBMS là viết tắt của Relational Database Management System - Hệ quản trị CSDL quan hệ, là một DBMS, dùng để quản lý CSDL theo Mô hình quan hệ.
+
+Một số RDBMS phổ biến:
+- MySQL
+- PostgreSQL
+- Oracle Database
+- Microsoft SQL Server
+- IBM DB2
+
+#### 3.2.2 Làm việc với RDBMS
+**Các thành phần của RDBMS**
+Khi cài đặt một RDBMS, bạn không chỉ cài đặt một phần mềm đơn lẻ mà là một tập hợp các thành phần và công cụ phối hợp để quản lý dữ liệu hiệu quả.
+
+Cụ thể, khi cài đặt SQL Server, bạn đã cài đặt các thành phần sau:
+
+- Công cụ cơ sở dữ liệu (Database engine), đây là thành phần cốt lõi của một RDBMS, chịu trách nhiệm lưu trữ, quản lý, và truy xuất dữ liệu theo mô hình quan hệ. Nó xử lý các lệnh SQL, quản lý bảng, chỉ mục, giao dịch, và tối ưu hóa truy vấn.
+
+- Công cụ dòng lệnh (sqlcmd), cho phép bạn làm việc với Database engine bằng lệnh, thông qua Command Prompt, CMD hoặc PowerShell
+
+- Công cụ đồ họa (SQL Server Management Studio-SSMS), là một công cụ  mạnh mẽ cho phép bạn quản lý và phát triển cơ sở dữ liệu SQL Server. SSMS cung cấp các công cụ để tạo bảng, truy vấn dữ liệu, quản lý người dùng và thực hiện nhiều tác vụ quản trị khác.
+
+- Các công cụ quản lý khác, dịch vụ nền, thư viện và các tính năng bổ sung khác.
+
+![image](md_assets/rdbms.jpg)
+#### 3.2.3 Khóa chính và Khóa ngoại
+Khóa (key) là gì?
+
+Trong cơ sở dữ liệu quan hệ, "khóa" là một hoặc một tập hợp các thuộc tính (cột) trong một bảng (quan hệ), được sử dụng để xác định duy nhất một bản ghi (hàng) trong bảng đó hoặc để liên kết các bảng với nhau.
+
+Khóa chính (primary key) là gì?
+- Là khóa dùng để xác định duy nhất mỗi bản ghi trong một bảng.
+- Mỗi bảng chỉ có một khóa chính.
+- Giá trị của khóa chính không được trùng lặp và không được mang giá trị NULL.
+- Ví dụ: Mã nhân viên (MANV) trong bảng Nhân viên.
+
+Khóa ngoại (foreign key) là gì?
+- Là khóa được sử dụng để liên kết hai bảng với nhau.
+- Khóa ngoại của một bảng tham chiếu đến khóa chính của một bảng khác.
+- Khóa ngoại giúp đảm bảo tính toàn vẹn tham chiếu giữa các bảng.
+- Ví dụ: Mã chi nhánh (MSCN) trong bảng Nhân viên, tham chiếu đến Mã chi nhánh
+### 3.3 Truy vấn dữ liệu
+Truy vấn dữ liệu là quá trình tìm kiếm, lấy ra và xử lý thông tin từ một nguồn dữ liệu, thường là cơ sở dữ liệu.
+
+Mục đích chính của truy vấn dữ liệu:
+- Lấy thông tin cần thiết: giúp người dùng hoặc ứng dụng tìm kiếm và lấy ra thông tin cụ thể từ một lượng lớn dữ liệu được lưu trữ.
+- Phân tích dữ liệu: có thể được sử dụng để lọc, sắp xếp, tính toán và tổng hợp dữ liệu, giúp người dùng hiểu rõ hơn về dữ liệu.
+- Báo cáo dữ liệu: được sử dụng để tạo ra các báo cáo dữ liệu, hiển thị dữ liệu theo định dạng dễ hiểu.
+- Tự động hóa tác vụ: có thể được sử dụng để tự động hóa các tác vụ quản lý dữ liệu, chẳng hạn như cập nhật dữ liệu, xóa dữ liệu hoặc tạo bản sao lưu dữ liệu.
+
+Phép chọn (SELECT) là gì?
+
+Trong SQL (Structured Query Language), phép chọn (SELECT) là một trong những lệnh cơ bản và quan trọng nhất, được sử dụng để truy xuất dữ liệu từ một hoặc nhiều bảng trong cơ sở dữ liệu.
+
+Chức năng chính của phép chọn:
+- Truy xuất dữ liệu: lệnh SELECT cho phép bạn lấy dữ liệu từ các cột cụ thể hoặc tất cả các cột trong một bảng.
+- Lọc dữ liệu: bạn có thể sử dụng mệnh đề WHERE để lọc dữ liệu dựa trên các điều kiện cụ thể.
+- Sắp xếp dữ liệu: mệnh đề ORDER BY cho phép bạn sắp xếp dữ liệu theo thứ tự tăng dần hoặc giảm dần.
+- Nhóm dữ liệu: mệnh đề GROUP BY cho phép bạn nhóm các bản ghi có giá trị giống nhau trong một cột.
+- Kết hợp dữ liệu: lệnh SELECT có thể được sử dụng để kết hợp dữ liệu từ nhiều bảng khác nhau bằng cách sử dụng các phép kết nối (JOIN).
+
+### 3.4 Postgresql 
+Postgresql là một hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) mã nguồn mở, mạnh mẽ, và đáng tin cậy, được phát triển từ năm 1986 tại Đại học California, Berkeley.
+
+Đặc điểm nổi bật:
+- Mã nguồn mở: miễn phí, cộng đồng phát triển tích cực, có thể tùy chỉnh.
+- Tuân thủ chuẩn SQL: hỗ trợ đầy đủ các truy vấn SQL phức tạp và chuẩn ACID (atomicity - tính nguyên tử, consistency - tính nhất quán, isolation - tính độc lập, durability - tính bền vững).
+- Hỗ trợ dữ liệu đa dạng: ngoài các kiểu dữ liệu cơ bản (INTEGER, VARCHAR, TIMESTAMP), Postgresql còn hỗ trợ JSON/JSONB, ARRAY, UUID, và dữ liệu địa lý (PostGIS).
+- Tính năng nâng cao: hỗ trợ múi giờ (TIMESTAMP WITH TIME ZONE); truy vấn phức tạp (window functions, common table expressions, full-text search); khả năng mở rộng (hỗ trợ replication, sharding, và xử lý khối lượng dữ liệu lớn).
+- Độ tin cậy: được sử dụng bởi các công ty lớn như Apple, Instagram, và Spotify nhờ khả năng xử lý ổn định và bảo mật cao.
+- Đa nền tảng: chạy trên Windows, Linux, macOS, và các hệ thống đám mây như AWS, Google Cloud.
+  
+Postgresql phù hợp cho:
+- Ứng dụng web (ví dụ: dùng với Django, Node.js).
+- Kho dữ liệu (data warehouse) và phân tích dữ liệu.
+- Ứng dụng cần xử lý dữ liệu JSON hoặc dữ liệu địa lý.
+
+**Cài đặt: pg và pg-hstore**  
+- Nhập lệnh: E:\TeoShop>pnpm i -s pg pg-hstore
+- Mở tập tin package.json để kiểm tra xem việc cài đặt pg và pg-hstore được chưa. Nếu có thông tin của 2 gói này trong mục dependencies là đã cài đặt thành công.
+
+**Cài đặt sequelize**
+- Nhập lệnh: E:\TeoShop>pnpm i -s sequelize  
+- Mở tập tin package.json để kiểm tra xem việc cài đặt sequelize được chưa. Nếu có thông tin của sequelize trong mục dependencies là đã cài đặt thành công.
+
+**Cài đặt sequelize-cli**
+- sequelize-cli là công cụ dòng lệnh (cli - command line interface) để ra lệnh cho sequelize  
+- Cài ở chế độ global  
+- Nhập lệnh: E:\TeoShop>npm i -g sequelize-cli  
+
+**Lệnh sequelize init**
+Lệnh sequelize init được sử dụng để khởi tạo cấu trúc thư mục và các tập tin cấu hình cần thiết cho một dự án có sử dụng sequelize.  
+Khi chạy lệnh sequelize init trong thư mục gốc của dự án Node.js, Sequelize-CLI sẽ tạo ra các thư mục và tập tin sau:  
+- config/config.json (hoặc config/config.js tùy thuộc vào cấu hình): tập tin này chứa các cấu hình kết nối đến cơ sở dữ liệu cho các môi trường khác nhau (development, test, production). Bạn sẽ cần chỉnh sửa tập tin này để cung cấp thông tin đăng nhập và chi tiết kết nối đến cơ sở dữ liệu bạn muốn sử dụng (ví dụ: PostgreSQL, MySQL, SQLite, SQL Server).  
+- models/: thư mục này sẽ chứa các tập tin định nghĩa model của bạn. Mỗi tập tin model thường tương ứng với một bảng trong cơ sở dữ liệu. Bạn sẽ định nghĩa tên bảng, các cột, kiểu dữ liệu, và các ràng buộc trong các tập tin này.  
+- migrations/: thư mục này sẽ chứa các tập tin migration.  
+Migration là các tập tin JavaScript chứa mã nguồn để thực hiện các thay đổi lược đồ cơ sở dữ liệu theo thời gian (ví dụ: tạo bảng, thêm cột, sửa đổi cột). Sequelize-CLI cung cấp các lệnh để tạo, chạy và rollback các migration.  
+- seeders/: thư mục này sẽ chứa các tập tin seeder. Seeder là các tập tin JavaScript chứa mã nguồn để chèn dữ liệu mẫu ban đầu vào cơ sở dữ liệu (ví dụ: tạo các tài khoản người dùng quản trị ban đầu, thêm các danh mục sản phẩm mặc định). Sequelize-CLI cũng cung cấp các lệnh để chạy các seeder.  
+
+**Khởi chạy Postgresql**
+Postgresql sẽ tự chạy dưới dạng một dịch vụ (services), chứ không phải chạy như một chương trình có giao diện (như Microsoft Word). Điều này có nghĩa là nó hoạt động liên tục trong nền (background) để xử lý các yêu cầu truy vấn cơ sở dữ liệu mà không cần giao diện người dùng.
+
+**Làm việc với Postgresql**
+Gõ lệnh ```psql -U postgres``` để sử dụng
+
+Nếu đăng nhập thành công, dấu nhắc lệnh sẽ chuyển từ > thành #:
+
+![image](md_assets/postpres.png)
+
+Cũng như các hệ quản trị cơ sở dữ liệu khác (Mysql, SQL server), bạn cũng có 3 cách để kết nối và làm việc với Postgresql:
+- Dùng công cụ dòng lệnh: psql.
+- Dùng công cụ GUI: pgAdmin hoặc DBeaver.
+- API/Thư viện (gắn với một ngôn ngữ lập trình): JDBC hoặc Sequelize.
+
+Ví dụ một số lệnh trong psql:
+* ```\list```: để xem các cơ sở dữ liệu đang có trong Postgresql
+* ```create database testdb```: tạo cơ sở dữ liệu có tên là testdb.
+* ```exit```: Thoát postgres
+
+### 3.5 Tạo csdl bằng Sequelize
+B1: Tạo cơ sở dữ liệu rỗng
+
+B2: Chỉnh thông tin password, database theo cài đặt trên máy của bạn trong file config.json
+
+B3: Tạo các bảng của đối tượng
+
 ### BÀI TẬP  
-**Câu 1.1** Liệt kê 3 gói thuê bao (tên gói, giá tiền) của 3 nhà cung cấp kết nối Internet tại Việt Nam.
-VNPT (Gói Home NET 1, 165.000 VNĐ/tháng)  
-Viettel (Gói SUN1, 180.000 VNĐ/tháng (ngoại thành), 220.000 VNĐ/tháng (nội thành))  
-FPT (Gói GIGA, 165.000 VNĐ/tháng)  
+Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
 
-**Câu 1.3** Phát biểu nào không đúng khi nói về web, trang web và website?
-A. Web là hệ thống thông tin toàn cầu  
-B. Web được tạo thành nhờ các trang web và sự liên kết giữa chúng  
-**C. Một trang web chứa nhiều website**  
-D. Một website chứa nhiều trang web có liên quan đến nhau  
+A. Web là hệ thống thông tin toàn cầu
 
-**Câu 1.4** Phát biểu nào không đúng khi nói về website và ứng dụng web?
-A. Không có sự phân biệt rõ ràng giữa website và ứng dụng web  
-B. Một website và ứng dụng web có một địa chỉ URL để truy cập  
-C. Website và ứng dụng web hoạt động dựa trên mô hình client-server  
-**D. Chỉ cần sử dụng HTML và CSS là có thể tạo ra được ứng dụng web**  
+B. Web được tạo thành nhờ các trang web và sự liên kết giữa chúng
 
-**Câu 2.3:** Có 3 cách để tạo ra một ứng dụng web? Phát biểu nào không đúng?
-A. Sử dụng CMS  
-B. Sử dụng framework và thư viện hỗ trợ  
-C. Viết thuần bằng ngôn ngữ lập trình mà không sử dụng framework, thư viện hỗ trợ  
-**D. Sử dụng trình duyệt web**  
+**C. Một trang web chứa nhiều website**
 
-**Câu 2.4:** Những ưu điểm khi sử dụng CMS để tạo ra ứng dụng web. Phát biểu nào không đúng?
-**A. Cần kiến thức lập trình chuyên sâu**  
-B. Tối ưu SEO  
-C. Dễ sử dụng, dễ quản lý, tiết kiệm thời gian  
-D. Chi phí phát triển ứng dụng thấp  
+D. Một website chứa nhiều trang web có liên quan đến nhau
 
-**Câu 2.5:** Những ưu điểm khi sử dụng framework và thư viện để tạo ra ứng dụng web. Phát biểu nào không đúng?
-A. Tăng tốc độ phát triển  
-B. Cải thiện chất lượng viết mã  
-**C. Giảm khả năng bảo mật**  
-D. Dễ dàng bảo trì và mở rộng  
+Câu 1.4: Phát biểu nào không đúng khi nói về website và ứng dụng web?
 
-**Câu 3.2:** Một số phần mềm web server phổ biến. Phát biểu nào không đúng?
-A. Apache  
-B. Nginx  
-**C. SSI**  
-D. Node.js  
+A. Không có sự phân biệt rõ ràng giữa website và ứng dụng web
 
-**Câu 3.3:** Các chức năng của Web server là gì? Phát biểu nào không đúng?
-A. Lưu trữ các tập tin của ứng dụng web  
-B. Nhận request từ client  
-C. Xử lý request  
-**D. Nhận response từ máy client**  
+B. Một website và ứng dụng web có một địa chỉ URL để truy cập
 
-**4.2:** Lệnh nào được sử dụng để nhúng Git vào thư mục dự án?
-**A. git init**  
-B. git --init  
-C. git initialize  
-D. git embed  
+C. Website và ứng dụng web hoạt động dựa trên mô hình client-server
 
-**4.3:** Lệnh nào sử dụng để kiểm tra trên máy tính đã có phần mềm Git hay chưa?
-A. git ver  
-B. git version  
-**C. git --version hoặc git -v**  
-D. git --ver  
+**D. Chỉ cần sử dụng HTML và CSS là có thể tạo ra được ứng dụng web**
 
-**4.4:** Trong Git, kho lưu trữ (repo, repository) là gì?
-A. Là thư mục dự án  
-B. Là thư mục dự án đã được nhúng Git  
-C. Là thư mục cài đặt phần mềm Git  
-**D. Là thư mục .git (trong thư mục dự án)**  
+2. Phát triển ứng dụng Web
 
-**4.5** Bạn có thể sử dụng các công cụ sau để viết mã. Phát biểu nào không đúng?
-A. Text editor  
-**B. MS Word**  
-C. IDE, Code Editor  
-D. Chatbot (Gemini), Trang web (https://codepen.io/)  
+Câu 2.3: Có 3 cách để tạo ra một ứng dụng web? Phát biểu nào không đúng?
 
-**Câu 1.1** Các đặc điểm của hệ thống quản lý phiên bản cục bộ. Phát biểu nào không đúng?
-A. Có thể thực hiện thủ công  
-B. Không hỗ trợ trong môi trường cộng tác nhiều người  
-C. Có thể dùng phần mềm để quản lý phiên bản kiểu cục bộ  
-**D. Các phiên bản của dự án được lưu tập trung trên một máy server**  
+A. Sử dụng CMS
 
-**Câu 1.2** Các đặc điểm của hệ thống quản lý phiên bản tập trung. Phát biểu nào không đúng?
-A. Các phiên bản của dự án được lưu tập trung trên máy server  
-**B. Các máy client sẽ chứa tất cả các phiên bản của thư mục dự án cùng với lịch sử thay đổi**  
-C. Máy client không thể tải phiên bản của dự án về, khi máy server không hoạt động  
-D. Hỗ trợ làm việc cộng tác nhiều người  
+B. Sử dụng framework và thư viện hỗ trợ
 
-**Câu 1.3** Các đặc điểm của hệ thống quản lý phiên bản phân tán. Phát biểu nào không đúng?
-A. Các máy client sẽ chứa toàn bộ các phiên bản của dự án, cùng lịch sử thay đổi  
-B. Hỗ trợ làm việc cộng tác nhiều người  
-C. Các phiên bản của dự án được lưu trên máy server  
-**D. Bạn không thể tạo và lưu phiên bản khi không có kết nối mạng tới máy server**  
+C. Viết thuần bằng ngôn ngữ lập trình mà không sử dụng framework, thư viện hỗ trợ
 
-**Câu 5.2** Nodejs là gì? Phát biểu nào **không đúng**?  
-A. Nodejs là môi trường phát triển ứng dụng  
-**B. Nodejs là một ngôn ngữ lập trình**  
-C. Nodejs là nền tảng phát triển ứng dụng  
+**D. Sử dụng trình duyệt web**
+
+Câu 2.4: Những ưu điểm khi sử dụng CMS để tạo ra ứng dụng web. Phát biểu nào không đúng?
+
+**A. Cần kiến thức lập trình chuyên sâu**
+
+B. Tối ưu SEO
+
+C. Dễ sử dụng, dễ quản lý, tiết kiệm thời gian
+
+D. Chi phí phát triển ứng dụng thấp
+
+Câu 2.5: Những ưu điểm khi sử dụng framework và thư viện để tạo ra ứng dụng web. Phát biểu nào không đúng?
+
+A. Tăng tốc độ phát triển
+
+B. Cải thiện chất lượng viết mã
+
+**C. Giảm khả năng bảo mật**
+
+D. Dễ dàng bảo trì và mở rộng
+
+Câu 3.2: Một số phần mềm web server phổ biến. Phát biểu nào không đúng?
+
+A. Apache
+
+B. Nginx
+
+**C. SSI**
+
+D. Node.js
+
+Câu 3.3: Các chức năng của Web server là gì? Phát biểu nào không đúng?
+
+A. Lưu trữ các tập tin của ứng dụng web
+
+B. Nhận request từ client
+
+C. Xử lý request
+
+**D. Nhận response từ máy client**
+
+4.2 Lệnh nào được sử dụng để nhúng Git vào thư mục dự án?
+
+**A. git init**
+
+B. git --init
+
+C. git initialize
+
+D. git embed
+
+4.3 Lệnh nào sử dụng để kiểm tra trên máy tính đã có phần mềm Git hay chưa?
+
+A. git ver
+
+B. git version
+
+**C. git --version hoặc git -v**
+
+D. git --ver
+
+4.4 Trong Git, kho lưu trữ (repo, repository) là gì?
+
+A. Là thư mục dự án
+
+B. Là thư mục dự án đã được nhúng Git
+
+C. Là thư mục cài đặt phần mềm Git
+
+**D. Là thư mục .git (trong thư mục dự án)**
+
+4.5 Bạn có thể sử dụng các công cụ sau để viết mã. Phát biểu nào không đúng?
+
+A. Text editor
+
+**B. MS Word**
+
+C. IDE, Code Editor
+
+D. Chatbot (Gemini), Trang web (https://codepen.io/) 
+
+Câu 1.1 Các đặc điểm của hệ thống quản lý phiên bản cục bộ. Phát
+biểu nào không đúng?
+
+A. Có thể thực hiện thủ công
+
+B. Không hỗ trợ trong môi trường cộng tác nhiều người
+
+C. Có thể dùng phần mềm để quản lý phiên bản kiểu cục bộ
+
+**D. Các phiên bản của dự án được lưu tập trung trên một máy server**
+
+Câu 1.2 Các đặc điểm của hệ thống quản lý phiên bản tập trung.
+Phát biểu nào không đúng?
+
+A. Các phiên bản của dự án được lưu tập trung trên máy server
+
+**B. Các máy client sẽ chứa tất cả các phiên bản của thư mục dự án
+cùng với lịch sử thay đổi** 
+
+C. Máy client không thể tải phiên bản của dự án về, khi máy server
+không hoạt động
+
+D. Hỗ trợ làm việc cộng tác nhiều người
+
+Câu 1.3 Các đặc điểm của hệ thống quản lý phiên bản phân tán. Phát
+biểu nào không đúng?
+
+A. Các máy client sẽ chứa toàn bộ các phiên bản của dự án, cùng
+lịch sử thay đổi
+
+B. Hỗ trợ làm việc cộng tác nhiều người
+
+C. Các phiên bản của dự án được lưu trên máy server
+
+**D. Bạn không thể tạo và lưu phiên bản khi không có kết nối mạng
+tới máy server**
+
+Câu 5.2 Nodejs là gì? Phát biểu nào không đúng?
+
+A. Nodejs là môi trường phát triển ứng dụng
+
+**B. Nodejs là một ngôn ngữ lập trình**
+
+C. Nodejs là nền tảng phát triển ứng dụng
+
 D. Có thể sử dụng Nodejs để tạo web server
 
-**Câu 5.3** NPM là gì? Phát biểu nào **không đúng**?  
-A. NPM là viết tắt của Node Package Manager  
-B. NPM là công cụ để quản lý các thư viện dùng trong một ứng dụng chạy trên nền Nodejs  
-C. NPM được cài đặt mặc định khi cài đặt Nodejs  
+Câu 5.3 NPM là gì? Phát biểu nào không đúng?
+
+A. NPM là viết tắt của Node Package Manager
+
+B. NPM là công cụ để quản lý các thư viện dùng trong một ứng dụng chạy trên nền Nodejs
+
+C. NPM được cài đặt mặc định khi cài đặt Nodejs
+
 **D. NPM gồm 3 thành phần: website, GUI và registry**
 
-**Câu 6.4** Trong ứng dụng chạy trên nền Nodejs, tập tin package.json dùng để làm gì? Phát biểu nào **không đúng**?  
-A. Chứa thông tin mô tả về ứng dụng  
-B. Quản lý các phụ thuộc  
-C. Chỉ ra tập tin JavaScript đầu tiên được thực thi  
+Câu 6.4 Trong ứng dụng chạy trên nền Nodejs, tập tin package.json dùng để làm gì? Phát biểu nào không đúng?
+
+A. Chứa thông tin mô tả về ứng dụng
+
+B. Quản lý các phụ thuộc
+
+C. Chỉ ra tập tin JavaScript đầu tiên được thực thi
+
 **D. Chứa mã để tạo giao diện ứng dụng**
 
-**Câu 6.5** PNPM là gì? Phát biểu nào **không đúng**?  
-A. Giúp tiết kiệm dung lượng đĩa  
-B. Có thể thay thế hoặc bổ sung cho NPM  
-C. Là viết tắt của Performant Node Package Manager  
+Câu 6.5 PNPM là gì? Phát biểu nào không đúng?
+
+A. Giúp tiết kiệm dung lượng đĩa
+
+B. Có thể thay thế hoặc bổ sung cho NPM
+
+C. Là viết tắt của Performant Node Package Manager 
+
 **D. Không thể thay thế hoặc bổ sung cho NPM**
 
-**Câu 6.6** Express trong Node.js được sử dụng để làm gì?  
-**A. Tạo ứng dụng web và API**  
-B. Quản lý cơ sở dữ liệu  
-C. Thiết kế giao diện người dùng  
+Câu 6.6 Express trong Node.js được sử dụng để làm gì?
+
+**A. Tạo ứng dụng web và API**
+
+B. Quản lý cơ sở dữ liệu
+
+C. Thiết kế giao diện người dùng
+
 D. Kiểm tra hiệu suất ứng dụng
 
-**Câu 6.7** Nodemon trong Node.js được sử dụng để làm gì?  
-A. Kết nối với cơ sở dữ liệu  
-B. Tạo giao diện người dùng cho ứng dụng  
-C. Quản lý các gói phụ thuộc  
+Câu 6.7 Nodemon trong Node.js được sử dụng để làm gì?
+
+A. Kết nối với cơ sở dữ liệu
+
+B. Tạo giao diện người dùng cho ứng dụng
+
+C. Quản lý các gói phụ thuộc
+
 **D. Tự động khởi động lại server khi mã thay đổi**
 
-**Câu 7.2** Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào **không đúng** khi nói về gói cục bộ?  
-A. Gói cục bộ được cài đặt trong thư mục node_modules của dự án  
-B. Gói cục bộ chỉ có thể được sử dụng trong dự án mà nó được cài đặt  
-C. Gói cục bộ được quản lý thông qua file package.json và có thể sử dụng các phiên bản khác nhau giữa các dự án  
+Câu 7.2 Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào không đúng khi nói về gói cục bộ?
+
+A. Gói cục bộ được cài đặt trong thư mục node_modules của dự án
+
+B. Gói cục bộ chỉ có thể được sử dụng trong dự án mà nó được cài đặt
+
+C. Gói cục bộ được quản lý thông qua file package.json và có thể sử dụng các phiên bản khác nhau giữa các dự án
+
 **D. Gói cục bộ luôn được cài đặt toàn cục trên hệ thống để tất cả các dự án đều có thể truy cập**
 
-**Câu 7.3** Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào **không đúng** khi nói về gói toàn cục?  
-**A. Gói toàn cục luôn được liệt kê trong tập tin package.json của dự án**  
-B. Gói toàn cục thường được sử dụng cho các công cụ dòng lệnh (CLI) như nodemon  
-C. Gói toàn cục được lưu trong thư mục toàn cục của hệ thống và có thể truy cập từ bất kỳ dự án nào  
-D. Gói toàn cục được cài đặt bằng lệnh npm install -g
+Câu 7.3 Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào không đúng khi nói về gói toàn cục?
 
-**Câu 7.4** Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào **không đúng** khi nói về kiểu cài đặt dependencies?  
-A. Các gói trong dependencies được cài đặt cục bộ trong dự án bằng lệnh npm install  
-B. Các gói trong dependencies là các phụ thuộc cần thiết để ứng dụng chạy trong môi trường triển khai, sản xuất (production)  
-**C. Các gói trong dependencies chỉ được sử dụng trong giai đoạn phát triển và không cần thiết khi triển khai ứng dụng (production)**  
+**A. Gói toàn cục luôn được liệt kê trong tập tin package.json của dự án**
+
+B. Gói toàn cục thường được sử dụng cho các công cụ dòng lệnh (CLI) như nodemon
+
+C. Gói toàn cục được lưu trong thư mục toàn cục của hệ thống và có thể truy cập từ bất kỳ dự án nào
+
+D. Gói toàn cục được cài đặt bằng lệnh npm install -g <package-name>
+
+Câu 7.4 Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào không đúng khi nói về kiểu cài đặt dependencies?
+
+A. Các gói trong dependencies được cài đặt cục bộ trong dự án bằng lệnh npm install <package-name>
+
+B. Các gói trong dependencies là các phụ thuộc cần thiết để ứng dụng chạy trong môi trường triển khai, sản xuất (production)
+
+**C. Các gói trong dependencies chỉ được sử dụng trong giai đoạn phát triển và không cần thiết khi triển khai ứng dụng (production)**
+
 D. Các gói trong dependencies được liệt kê trong tập tin package.json và tự động cài đặt khi chạy npm install
 
-**Câu 7.5** Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào **không đúng** khi nói về kiểu cài đặt devDependencies?  
-A. Các gói trong devDependencies được cài đặt bằng lệnh npm install --save-dev  
-**B. Các gói trong devDependencies là các phụ thuộc cốt lỗi để ứng dụng chạy trong môi trường triển khai (production)**  
-C. Các gói trong devDependencies chỉ cần thiết trong giai đoạn phát triển hoặc kiểm thử, không cần cho môi trường triển khai (production)  
+Câu 7.5 Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào không đúng khi nói về kiểu cài đặt devDependencies?
+
+A. Các gói trong devDependencies được cài đặt bằng lệnh npm install <package-name> --save-dev
+
+**B. Các gói trong devDependencies là các phụ thuộc cốt lỗi để ứng dụng chạy trong môi trường triển khai (production)**
+
+C. Các gói trong devDependencies chỉ cần thiết trong giai đoạn phát triển hoặc kiểm thử, không cần cho môi trường triển khai (production)
+
 D. Các gói trong devDependencies không được cài đặt khi chạy npm install --production
 
-**Câu 8.2** Lập trình đồng bộ trong JavaScript là gì? Phát biểu nào sau đây **không đúng**?  
-**A. Lập trình đồng bộ không chặn luồng, cho phép các lệnh tiếp theo chạy ngay cả khi tác vụ chưa hoàn tất.**  
-B. Các lệnh được thực thi tuần tự, theo thứ tự từ trên xuống dưới.  
-C. Mỗi lệnh phải hoàn thành trước khi lệnh tiếp theo được thực thi.  
+Câu 8.2: Lập trình đồng bộ trong JavaScript là gì? Phát biểu nào sau đây không đúng?
+
+**A. Lập trình đồng bộ không chặn luồng, cho phép các lệnh tiếp theo chạy ngay cả khi tác vụ chưa hoàn tất.**
+
+B. Các lệnh được thực thi tuần tự, theo thứ tự từ trên xuống dưới.
+
+C. Mỗi lệnh phải hoàn thành trước khi lệnh tiếp theo được thực thi.
+
 D. Phù hợp với các tác vụ đơn giản như tính toán cơ bản không cần chờ đợi.
 
-**Câu 8.3** Hàm ẩn danh (anonymous function) trong JavaScript là gì? Phát biểu nào sau đây **không đúng**?  
-A. Hàm ẩn danh có thể truy cập biến trong phạm vi bao quanh nhờ closure.  
-B. Hàm ẩn danh là hàm không có tên khi được định nghĩa.  
-C. Hàm ẩn danh thường được gán vào biến hoặc truyền làm tham số cho hàm khác.  
+Câu 8.3: Hàm ẩn danh (anonymous function) trong JavaScript là gì? Phát biểu nào sau đây không đúng?
+
+A. Hàm ẩn danh có thể truy cập biến trong phạm vi bao quanh nhờ closure.
+
+B. Hàm ẩn danh là hàm không có tên khi được định nghĩa.
+
+C. Hàm ẩn danh thường được gán vào biến hoặc truyền làm tham số cho hàm khác.
+
 **D. Hàm ẩn danh được "nâng lên" (hoisted) giống như hàm khai báo (function declaration).**
 
-**Câu 9.2** Hàm mũi tên (arrow function) là gì? Phát biểu nào sau đây **không đúng** về hàm mũi tên?  
-A. Hàm mũi tên có cú pháp ngắn gọn, giúp viết mã dễ đọc hơn.  
-**B. Hàm mũi tên có this (ngữ cảnh) riêng, không kế thừa từ phạm vi bên ngoài.**  
-C. Hàm mũi tên không thể được dùng làm hàm tạo (constructor).  
+Câu 9.2: Hàm mũi tên (arrow function) là gì? Phát biểu nào sau đây không đúng về hàm mũi tên?
+
+A. Hàm mũi tên có cú pháp ngắn gọn, giúp viết mã dễ đọc hơn.
+
+**B. Hàm mũi tên có this (ngữ cảnh) riêng, không kế thừa từ phạm vi bên ngoài.**
+
+C. Hàm mũi tên không thể được dùng làm hàm tạo (constructor).
+
 D. Hàm mũi tên không có biến arguments để truy cập danh sách tham số.
 
-**Câu 9.3** Lập trình bất đồng bộ là gì? Phát biểu nào sau đây **không đúng** về lập trình bất đồng bộ?  
-A. Lập trình bất đồng bộ cho phép chương trình thực hiện nhiều tác vụ cùng lúc mà không cần chờ đợi tác vụ trước đó hoàn thành.  
-B. Lập trình bất đồng bộ đặc biệt hữu ích khi xử lý các tác vụ tốn thời gian như yêu cầu mạng, đọc/ghi tập tin hoặc tương tác với cơ sở dữ liệu.  
-**C. Callback là một kỹ thuật bất đồng bộ, nó sẽ làm cho code dễ đọc và dễ bảo trì hơn khi code có nhiều callback lồng nhau.**  
+Câu 9.3: Lập trình bất đồng bộ là gì? Phát biểu nào sau đây không đúng về lập trình bất đồng bộ?
+
+A. Lập trình bất đồng bộ cho phép chương trình thực hiện nhiều tác vụ cùng lúc mà không cần chờ đợi tác vụ trước đó hoàn thành.
+
+B. Lập trình bất đồng bộ đặc biệt hữu ích khi xử lý các tác vụ tốn thời gian như yêu cầu mạng, đọc/ghi tập tin hoặc tương tác với cơ sở dữ liệu.
+
+**C. Callback là một kỹ thuật bất đồng bộ, nó sẽ làm cho code dễ đọc và dễ bảo trì hơn khi code có nhiều callback lồng nhau.**
+
 D. Async/await cho phép viết mã bất đồng bộ trông giống như mã đồng bộ, giúp mã trở nên dễ đọc và dễ hiểu hơn
 
-**Câu 10.2** Hàm callback trong JavaScript là gì? Phát biểu nào sau đây **không đúng**?  
-A. Hàm callback là một hàm được truyền vào một hàm khác như một tham số.  
-B. Hàm callback thường được sử dụng để xử lý các tác vụ bất đồng bộ.  
-C. Hàm callback có thể là hàm ẩn danh, hàm mũi tên hoặc hàm đã được định nghĩa trước.  
+Câu 10.2 Hàm callback trong JavaScript là gì? Phát biểu nào sau đây không đúng?
+
+A. Hàm callback là một hàm được truyền vào một hàm khác như một tham số.
+
+B. Hàm callback thường được sử dụng để xử lý các tác vụ bất đồng bộ.
+
+C. Hàm callback có thể là hàm ẩn danh, hàm mũi tên hoặc hàm đã được định nghĩa trước.
+
 **D. Hàm callback được thực thi ngay lập tức sau khi hàm "cha" bắt đầu thực hiện.**
 
-**Câu 10.3** Callback hell trong JavaScript là gì? Phát biểu nào sau đây **không đúng**?  
-A. Callback hell xảy ra khi có quá nhiều hàm callback lồng nhau, khiến mã nguồn khó đọc và bảo trì.  
-B. Callback hell thường xuất hiện khi xử lý các tác vụ bất đồng bộ phức tạp.  
-**C. Callback hell là một cách hiệu quả để quản lý các tác vụ bất đồng bộ trong JavaScript.**  
+Câu 10.3 Callback hell trong JavaScript là gì? Phát biểu nào sau đây không đúng?
+
+A. Callback hell xảy ra khi có quá nhiều hàm callback lồng nhau, khiến mã nguồn khó đọc và bảo trì.
+
+B. Callback hell thường xuất hiện khi xử lý các tác vụ bất đồng bộ phức tạp.
+
+**C. Callback hell là một cách hiệu quả để quản lý các tác vụ bất đồng bộ trong JavaScript.**
+
 D. Callback hell có thể được giải quyết bằng Promise hoặc async/await.
 
-**Câu 3.2** Phạm vi cấu hình định danh trong Git là gì? Phát biểu nào sau đây **không đúng**?  
-A. Phạm vi system áp dụng cho tất cả người dùng và kho lưu trữ trên hệ thống.  
-B. Phạm vi global áp dụng cho tài khoản người dùng hiện tại và tất cả kho lưu trữ mà người dùng đó làm việc.  
-**C. Phạm vi local áp dụng cho một kho lưu trữ cụ thể và có độ ưu tiên thấp nhất.**  
+Câu 3.2 Phạm vi cấu hình định danh trong Git là gì? Phát biểu nào sau đây không đúng?
+
+A. Phạm vi system áp dụng cho tất cả người dùng và kho lưu trữ trên hệ thống.
+
+B. Phạm vi global áp dụng cho tài khoản người dùng hiện tại và tất cả kho lưu trữ mà người dùng đó làm việc.
+
+**C. Phạm vi local áp dụng cho một kho lưu trữ cụ thể và có độ ưu tiên thấp nhất.**
+
 D. Phạm vi local áp dụng cho một kho lưu trữ cụ thể và có độ ưu tiên cao nhất.
 
-**Câu 4.2** Ba khu vực làm việc chính của Git là gì? Phát biểu nào sau đây **không đúng**?  
-A. Thư mục làm việc (working directory) là nơi bạn chỉnh sửa tập tin trực tiếp.  
-**B. Khu tạm (staging area) là nơi lưu trữ lịch sử phiên bản của dự án.**  
-C. Kho chứa (repository) là nơi lưu trữ dữ liệu chính thức của dự án.  
-D. Lệnh git add được sử dụng để chuyển các thay đổi từ Thư mục làm việc sang Khu tạm (staging area).
+Câu 4.2 Ba khu vực làm việc chính của Git là gì? Phát biểu nào sau đây không đúng?
 
-**Câu 4.3** Thư mục làm việc (working directory) trong Git là gì? Phát biểu nào sau đây **không đúng**?  
-A. Là thư mục thực tế trên máy tính, nơi bạn làm việc trực tiếp với các tập tin của dự án.  
-B. Là nơi bạn tạo, sửa, hoặc xóa tập tin trước khi đưa thay đổi vào .git.  
-**C. Là nơi lưu trữ lịch sử phiên bản và dữ liệu chính thức của dự án.**  
+A. Thư mục làm việc (working directory) là nơi bạn chỉnh sửa tập tin trực tiếp.
+
+**B. Khu tạm (staging area) là nơi lưu trữ lịch sử phiên bản của dự án.**
+
+C. Kho chứa (repository) là nơi lưu trữ dữ liệu chính thức của dự án.
+
+D. Lệnh git add được sử dụng để chuyển các thay đổi từ Thư mục làm việc sang Khu
+tạm.
+
+Câu 4.3 Thư mục làm việc (working directory) trong Git là gì? Phát biểu nào sau đây không đúng?
+
+A. Là thư mục thực tế trên máy tính, nơi bạn làm việc trực tiếp với các tập tin của dự án.
+
+B. Là nơi bạn tạo, sửa, hoặc xóa tập tin trước khi đưa thay đổi vào .git.
+
+**C. Là nơi lưu trữ lịch sử phiên bản và dữ liệu chính thức của dự án.**
+
 D. Phản ánh các thay đổi so với commit cuối cùng, giúp bạn quyết định những gì cần thêm vào Khu tạm (staging area).
 
-**Câu 5.2** Khu tạm (staging area) trong Git là gì? Phát biểu nào sau đây **không đúng**?  
-A. Khu tạm là một khu vực trung gian giữa Thư mục làm việc (working directory) và Kho chứa (repository).  
-**B. Khu tạm là một thư mục vật lý trong Thư mục làm việc.**  
-C. Khu tạm cho phép bạn chọn lọc và tổ chức các thay đổi bạn muốn đưa vào commit tiếp theo.  
+Câu hỏi 5.2 Khu tạm (staging area) trong Git là gì? Phát biểu nào sau đây không đúng?
+
+A. Khu tạm là một khu vực trung gian giữa Thư mục làm việc (working directory) và Kho chứa (repository).
+
+**B. Khu tạm là một thư mục vật lý trong Thư mục làm việc.**
+
+C. Khu tạm cho phép bạn chọn lọc và tổ chức các thay đổi bạn muốn đưa vào commit tiếp theo.
+
 D. Lệnh git rm --cached <tên_tập_tin> được sử dụng để gỡ bỏ tên tập tin ra khỏi Khu tạm.
 
-**Câu 5.3** gitignore là gì? Phát biểu nào sau đây **không đúng**?  
-**A. gitignore giúp thêm các tập tin không liên quan (ví dụ: node_modules, tập tin log) vào kho chứa.**  
-B. gitignore là một cơ chế trong Git, cho phép bạn chỉ định các tập tin hoặc thư mục mà Git sẽ bỏ qua khi thực hiện các lệnh như git add hoặc git status.  
-C. gitignore được thực hiện thông qua tập tin có tên là .gitignore, thường đặt ở thư mục gốc của dự án.  
+Câu hỏi 5.3 gitignore là gì? Phát biểu nào sau đây không đúng?
+
+**A. gitignore giúp thêm các tập tin không liên quan (ví dụ: node_modules, tập tin log) vào kho chứa.**
+
+B. gitignore là một cơ chế trong Git, cho phép bạn chỉ định các tập tin hoặc thư mục mà Git sẽ bỏ qua khi thực hiện các lệnh như git add hoặc git status.
+
+C. gitignore được thực hiện thông qua tập tin có tên là .gitignore, thường đặt ở thư mục gốc của dự án.
+
 D. Mục đích của gitignore là loại bỏ các tập tin không cần thiết khỏi lịch sử phiên bản, như tập tin tạm, tập tin nhị phân, hoặc thư viện phụ thuộc.
 
-**Câu 5.4** Kho chứa (repository) trong Git là gì? Phát biểu nào sau đây **không đúng**?  
-A. Kho chứa là nơi lưu trữ tất cả các tập tin và lịch sử thay đổi của một dự án.  
-B. Thư mục .git trong dự án chính là Kho chứa.  
-C. Lệnh git commit được sử dụng để chuyển tập tin từ Thư mục làm việc (working directory) sang Kho chứa.  
-**D. Kho chứa cục bộ (local repository) là kho chứa được lưu trữ trên một máy chủ ở xa.**
+Câu hỏi 5.4 Kho chứa (repository) trong Git là gì? Phát biểu nào sau đây không đúng?
 
-**Câu 5.5** Commit trong Git là gì? Phát biểu nào sau đây **không đúng**?  
-A. Commit là lệnh trong Git dùng để lưu các thay đổi từ Khu tạm vào Kho chứa.  
-B. Commit tạo ra một "ảnh chụp" (snapshot) mới trong lịch sử phiên bản.  
-**C. Commit dùng để chuyển tập tin từ Kho chứa sang Khu tạm.**  
+A. Kho chứa là nơi lưu trữ tất cả các tập tin và lịch sử thay đổi của một dự án.
+
+B. Thư mục .git trong dự án chính là Kho chứa.
+
+**C. Lệnh git commit được sử dụng để chuyển tập tin từ Thư mục làm việc (working directory) sang Kho chứa.**
+
+D. Kho chứa cục bộ (local repository) là kho chứa được lưu trữ trên một máy chủ ở xa.
+
+Câu 5.5 Commit trong Git là gì? Phát biểu nào sau đây không đúng?
+
+A. Commit là lệnh trong Git dùng để lưu các thay đổi từ Khu tạm vào Kho chứa.
+
+B. Commit tạo ra một "ảnh chụp" (snapshot) mới trong lịch sử phiên bản.
+
+**C. Commit dùng để chuyển tập tin từ Kho chứa sang Khu tạm.**
+
 D. Mỗi commit đi kèm một thông điệp (message) mô tả thay đổi.
 
-**Câu 11.2** Free HTML template là gì? Phát biểu nào sau đây **không đúng**?  
-A. Free HTML template là các mẫu giao diện web được thiết kế sẵn, bao gồm HTML, CSS, và đôi khi JavaScript, được cung cấp miễn phí.  
-B. Free HTML template thường có giao diện đẹp, cấu trúc cơ bản (header, footer, sidebar), và phù hợp cho nhiều loại dự án như blog, portfolio, hoặc trang doanh nghiệp nhỏ.  
-**C. Sử dụng Free HTML template tốn nhiều thời gian, phù hợp cho các dự án lớn.**  
+Câu 11.2 Free HTML template là gì? Phát biểu nào sau đây không đúng?
+
+A. Free HTML template là các mẫu giao diện web được thiết kế sẵn, bao gồm HTML, CSS, và đôi khi JavaScript, được cung cấp miễn phí.
+
+B. Free HTML template thường có giao diện đẹp, cấu trúc cơ bản (header, footer, sidebar), và phù hợp cho nhiều loại dự án như blog, portfolio, hoặc trang doanh nghiệp nhỏ.
+
+**C. Sử dụng Free HTML template tốn nhiều thời gian, phù hợp cho các dự án lớn.**
+
 D. Free HTML template cho phép bạn tùy chỉnh CSS, thay đổi nội dung (văn bản, hình ảnh), tích hợp back-end (như Node.js, PHP).
 
-**Câu 11.3** Static files (tập tin tĩnh) trong Express là gì? Phát biểu nào sau đây **không đúng**?  
-A. Static files là các tập tin không thay đổi nội dung hoặc không cần xử lý logic phía server.  
-B. Static files được gửi trực tiếp cho client thông qua middleware express.static.  
-C. Mục đích của static files là tối ưu hóa hiệu suất, tổ chức dự án và bảo mật.  
+Câu 11.3 Static files (tập tin tĩnh) trong Express là gì? Phát biểu nào sau đây không đúng?
+
+A. Static files là các tập tin không thay đổi nội dung hoặc không cần xử lý logic phía server.
+
+B. Static files được gửi trực tiếp cho client thông qua middleware express.static.
+
+C. Mục đích của static files là tối ưu hóa hiệu suất, tổ chức dự án và bảo mật.
+
 **D. Không nên đặt các static files trong thư mục public**
 
-**Câu 12.1** Ứng dụng cục bộ là gì? Phát biểu nào sau đây **không đúng**?  
-A. Ứng dụng cục bộ chạy trực tiếp trên thiết bị của người dùng mà không cần kết nối liên tục với máy chủ ở xa.  
-**B. Ứng dụng cục bộ luôn yêu cầu kết nối internet ổn định để hoạt động hiệu quả.**  
-C. Ứng dụng cục bộ có thể truy cập trực tiếp vào các tài nguyên của thiết bị như hệ thống tập tin và phần cứng.  
+Câu hỏi 12.1 Ứng dụng cục bộ là gì? Phát biểu nào sau đây không đúng?
+
+A. Ứng dụng cục bộ chạy trực tiếp trên thiết bị của người dùng mà không cần kết nối liên tục với máy chủ ở xa.
+
+**B. Ứng dụng cục bộ luôn yêu cầu kết nối internet ổn định để hoạt động hiệu quả.**
+
+C. Ứng dụng cục bộ có thể truy cập trực tiếp vào các tài nguyên của thiết bị như hệ thống tập tin và phần cứng.
+
 D. Dữ liệu của ứng dụng cục bộ thường được lưu trữ trên thiết bị của người dùng, giúp tăng cường bảo mật và quyền riêng tư.
 
-**Câu 12.2** Ứng dụng kiểu client-server là gì? Phát biểu nào sau đây **không đúng**?  
-A. Client tập trung chủ yếu vào việc hiển thị giao diện người dùng, trong khi server tập trung xử lý logic và dữ liệu.  
-B. Giao tiếp giữa client và server thường được thực hiện qua mạng, sử dụng các giao thức như HTTP, WebSocket hoặc TCP/IP.  
-**C. Client và server luôn phải chạy trên các thiết bị riêng biệt, không bao giờ có thể cùng chạy trên một máy tính.**  
+Câu hỏi 12.2 Ứng dụng kiểu client-server là gì? Phát biểu nào sau đây không đúng?
+
+A. Client tập trung chủ yếu vào việc hiển thị giao diện người dùng, trong khi server tập trung xử lý logic và dữ liệu.
+
+B. Giao tiếp giữa client và server thường được thực hiện qua mạng, sử dụng các giao thức như HTTP, WebSocket hoặc TCP/IP.
+
+**C. Client và server luôn phải chạy trên các thiết bị riêng biệt, không bao giờ có thể cùng chạy trên một máy tính.**
+
 D. Server có nhiệm vụ nhận yêu cầu từ client, xử lý chúng, và gửi phản hồi lại cho client.
 
-**Câu 13.2** URL (Uniform Resource Locator) là gì? Phát biểu nào sau đây **không đúng**?  
-A. URL là một địa chỉ duy nhất xác định vị trí của một tài nguyên trên Internet.  
-B. URL bao gồm các thành phần như giao thức, tên miền, đường dẫn, truy vấn và phân mảnh.  
-C. Phần "truy vấn" (query) trong URL được sử dụng để truyền dữ liệu đến máy chủ thông qua các tham số.  
+Câu hỏi 13.2 URL (Uniform Resource Locator) là gì? Phát biểu nào sau đây không đúng?
+
+A. URL là một địa chỉ duy nhất xác định vị trí của một tài nguyên trên Internet.
+
+B. URL bao gồm các thành phần như giao thức, tên miền, đường dẫn, truy vấn và phân mảnh.
+
+C. Phần "truy vấn" (query) trong URL được sử dụng để truyền dữ liệu đến máy chủ thông qua các tham số.
+
 **D. Giao thức "FTP" là giao thức phổ biến nhất được sử dụng trong URL để truy cập các trang web.**
 
-**Câu 14.3** Mô hình lập trình hướng sự kiện trong Node.js là gì? Phát biểu nào sau đây **không đúng**?  
-**A. Event Emitter liên tục kiểm tra hàng đợi sự kiện và thực thi các hàm callback khi có sự kiện xảy ra.**  
-B. Event là các hành động hoặc sự thay đổi trạng thái xảy ra trong ứng dụng.  
-C. Event Loop liên tục kiểm tra hàng đợi sự kiện và thực thi các hàm callback khi có sự kiện xảy ra.  
+Câu hỏi 14.3 Mô hình lập trình hướng sự kiện trong Node.js là gì? Phát biểu nào sau đây không đúng?
+
+**A. Event Emitter liên tục kiểm tra hàng đợi sự kiện và thực thi các hàm callback khi có sự kiện xảy ra.**
+
+B. Event là các hành động hoặc sự thay đổi trạng thái xảy ra trong ứng dụng.
+
+C. Event Loop liên tục kiểm tra hàng đợi sự kiện và thực thi các hàm callback khi có sự kiện xảy ra.
+
 D. Event Handler là các hàm được gọi khi một sự kiện xảy ra.
 
-**Câu 15.2** Mô hình lập trình hướng sự kiện của Express. Phát biểu nào sau đây **không đúng**?  
-A. Mỗi request từ client (như GET, POST, PUT, DELETE) được xem là một sự kiện (Event).  
-**B. Các module http, fs, stream là các Bộ quản lý sự kiện (Event Emitter) của Express.**  
-C. Express sử dụng Vòng lặp sự kiện (Event Loop) của trình duyệt để lắng nghe và xử lý các sự kiện theo kiểu bất đồng bộ (asynchronous), không chặn luồng (non-blocking).  
+Câu hỏi 15.2 Mô hình lập trình hướng sự kiện của Express. Phát biểu nào sau đây không đúng?
+
+A. Mỗi request từ client (như GET, POST, PUT, DELETE) được xem là một sự kiện (Event).
+
+B. Các module http, fs, stream là các Bộ quản lý sự kiện (Event Emitter) của Express.
+
+**C. Express sử dụng Vòng lặp sự kiện (Event Loop) của trình duyệt để lắng nghe và xử lý các sự kiện theo kiểu bất đồng bộ (asynchronous), không chặn luồng (non-blocking).**
+
 D. Các route handler và middleware đóng vai trò như các Hàm xử lý sự kiện (Event Handler), được gọi khi sự kiện tương ứng xảy ra.
 
-**Câu 15.3** Route handler trong Express là gì? Phát biểu nào sau đây **không đúng**?  
-A. Route handler chỉ được gọi khi request khớp với route và HTTP method đã định nghĩa.  
-B. Route handler thường chứa logic nghiệp vụ như truy vấn cơ sở dữ liệu hoặc xử lý dữ liệu.  
-C. Route handler có thể chuyển tiếp request sang middleware hoặc handler tiếp theo bằng hàm next().  
+Câu hỏi 15.3 Route handler trong Express là gì? Phát biểu nào sau đây không đúng?
+
+A. Route handler chỉ được gọi khi request khớp với route và HTTP method đã định nghĩa.
+
+B. Route handler thường chứa logic nghiệp vụ như truy vấn cơ sở dữ liệu hoặc xử lý dữ liệu.
+
+C. Route handler có thể chuyển tiếp request sang middleware hoặc handler tiếp theo bằng hàm next().
+
 **D. Chỉ có duy nhất một Route handler được gắn vào một route.**
 
-**Câu 15.4** Middleware trong Express là gì? Phát biểu nào sau đây **không đúng**?  
-A. Middleware là các hàm được thực thi trong quá trình xử lý một HTTP request, trước hoặc sau Route handler.  
-B. Xử lý request (như xác thực, ghi log).  
-C. Sửa đổi đối tượng req hoặc res.  
+15.4. Middleware trong Express là gì? Phát biểu nào sau đây không đúng?
+
+A. Middleware là các hàm được thực thi trong quá trình xử lý một HTTP request, trước hoặc sau Route handler.
+
+B. Xử lý request (như xác thực, ghi log).
+
+C. Sửa đổi đối tượng req hoặc res.
+
 **D. Middleware nhận 2 tham số: req, res.**
 
-**Câu 16.1** Trang web động là gì. Phát biểu nào sau đây **không đúng**?  
-A. Nội dung hiển thị có thể khác nhau tùy thuộc vào người dùng truy cập.  
-**B. Nội dung trang web luôn cố định và không thay đổi theo thời gian.**  
-C. Giao diện có khả năng cập nhật một phần mà không cần tải lại toàn bộ trang.  
+Câu hỏi 16.1 Trang web động là gì. Phát biểu nào sau đây KHÔNG ĐÚNG?
+
+A. Nội dung hiển thị có thể khác nhau tùy thuộc vào người dùng truy cập. 
+
+**B. Nội dung trang web luôn cố định và không thay đổi theo thời gian.**
+
+C. Giao diện có khả năng cập nhật một phần mà không cần tải lại toàn bộ trang. 
+
 D. Trang web có thể tương tác với người dùng theo thời gian thực.
 
-**Câu 16.2** Ưu điểm của SSR (Server-Side Rendering) là gì? Phát biểu nào dưới đây **KHÔNG đúng**?  
-A. Tối ưu hóa SEO vì các công cụ tìm kiếm có thể thu thập và lập chỉ mục nội dung dễ dàng hơn nhờ nội dung đầy đủ trong mã HTML.  
-B. Tăng tốc độ tải trang ban đầu, giúp người dùng thấy nội dung nhanh hơn, đặc biệt trên thiết bị di động hoặc mạng chậm.  
-C. Hỗ trợ tốt cho thiết bị cấu hình yếu bằng cách giảm tải việc thực thi JavaScript trên thiết bị.  
+Câu hỏi 16.2 Ưu điểm của SSR (Server-Side Rendering) là gì? Phát biểu nào dưới đây KHÔNG đúng?
+
+A. Tối ưu hóa SEO vì các công cụ tìm kiếm có thể thu thập và lập chỉ mục nội dung dễ dàng hơn nhờ nội dung đầy đủ trong mã HTML.
+
+B. Tăng tốc độ tải trang ban đầu, giúp người dùng thấy nội dung nhanh hơn, đặc biệt trên thiết bị di động hoặc mạng chậm.
+
+C. Hỗ trợ tốt cho thiết bị cấu hình yếu bằng cách giảm tải việc thực thi JavaScript trên thiết bị.
+
 **D. Loại bỏ hoàn toàn sự phụ thuộc vào JavaScript để hiển thị nội dung trang web.**
 
-**Câu 16.3** Nhược điểm của CSR (Client-Side Rendering) là gì? Phát biểu nào dưới đây **KHÔNG đúng**?  
-**A. CSR luôn tiêu tốn nhiều tài nguyên server hơn so với SSR để hiển thị nội dung trang web.**  
-B. SEO không tốt vì các công cụ tìm kiếm có thể gặp khó khăn trong việc thu thập và lập chỉ mục nội dung được tạo bởi JavaScript.  
-C. Tốc độ tải trang ban đầu chậm do người dùng phải chờ trình duyệt tải và thực thi tập tin JavaScript trước khi thấy nội dung.  
+Câu hỏi 16.3 Nhược điểm của CSR (Client-Side Rendering) là gì? Phát biểu nào dưới đây KHÔNG đúng?
+
+**A. CSR luôn tiêu tốn nhiều tài nguyên server hơn so với SSR để hiển thị nội dung trang web.**
+
+B. SEO không tốt vì các công cụ tìm kiếm có thể gặp khó khăn trong việc thu thập và lập chỉ mục nội dung được tạo bởi JavaScript.
+
+C. Tốc độ tải trang ban đầu chậm do người dùng phải chờ trình duyệt tải và thực thi tập tin JavaScript trước khi thấy nội dung.
+
 D. Yêu cầu thiết bị người dùng phải mạnh để xử lý tốt các tác vụ JavaScript.
 
-**Câu 17.1** Express-handlebars là một _________được tích hợp vào framework Express để tạo ra “HTML động” từ phía server.  
-A. client-side template engine  
-B. server-side template machine  
-C. server-site template engine  
+Câu hỏi 17.1 Express-handlebars là một _________được tích hợp vào framework Express để tạo ra “HTML động” từ phía server.
+
+A. client-side template engine
+
+B. server-side template machine
+
+C. server-site template engine
+
 **D. server-side template engine**
 
-**Câu 1.1** Trong lĩnh vực Công nghệ Thông tin, dữ liệu là gì? Phát biểu nào sau đây **không đúng**?  
-**A. Dữ liệu thô (raw data) đã có ngữ cảnh và ý nghĩa, không cần phải thông dịch (xử lý) để trở thành thông tin.**  
-B. Dữ liệu là một chuỗi gồm một hoặc nhiều ký hiệu, như chữ cái, số, ký hiệu đặc biệt.  
-C. Ở mức lưu trữ thấp nhất (cấp độ phần cứng), mọi dữ liệu trong máy tính đều được biểu diễn bằng bit (binary digits) – tức là 0 và 1.  
+Câu 1.1 Trong lĩnh vực Công nghệ Thông tin, dữ liệu là gì? Phát biểu nào sau đây không đúng?
+
+**A. Dữ liệu thô (raw data) đã có ngữ cảnh và ý nghĩa, không cần phải thông dịch (xử lý) để trở thành thông tin.**
+
+B. Dữ liệu là một chuỗi gồm một hoặc nhiều ký hiệu, như chữ cái, số, ký hiệu đặc biệt.
+
+C. Ở mức lưu trữ thấp nhất (cấp độ phần cứng), mọi dữ liệu trong máy tính đều được biểu diễn bằng bit (binary digits) – tức là 0 và 1.
+
 D. Dữ liệu được lưu trữ trên ổ đĩa (HDD, SSD) hoặc các thiết bị khác như RAM, đám mây.
 
-**Câu 1.2** Cơ sở dữ liệu (database) là gì? Phát biểu nào sau đây **không đúng**?  
-A. Cơ sở dữ liệu là một tập hợp dữ liệu được tổ chức, lưu trữ và quản lý một cách có hệ thống trên máy tính.  
-**B. Cơ sở dữ liệu làm tăng sự trùng lặp thông tin lên mức cao nhất.**  
-C. Cơ sở dữ liệu giúp người dùng dễ dàng truy cập, quản lý, khai thác và cập nhật thông tin.  
+Câu 1.2 Cơ sở dữ liệu (database) là gì? Phát biểu nào sau đây không đúng?
+
+A. Cơ sở dữ liệu là một tập hợp dữ liệu được tổ chức, lưu trữ và quản lý một cách có hệ thống trên máy tính.
+
+**B. Cơ sở dữ liệu làm tăng sự trùng lặp thông tin lên mức cao nhất.**
+
+C. Cơ sở dữ liệu giúp người dùng dễ dàng truy cập, quản lý, khai thác và cập nhật thông tin.
+
 D. Cơ sở dữ liệu cho phép nhiều người cùng sử dụng một lúc.
 
-**Câu 1.3** DBMS là gì? Phát biểu nào sau đây **không đúng**?  
-A. DBMS là phần mềm cho phép người dùng tạo, quản lý và truy xuất dữ liệu trong CSDL.  
-B. DBMS cung cấp các công cụ để định nghĩa cấu trúc dữ liệu, nhập dữ liệu, truy vấn dữ liệu và bảo mật dữ liệu.  
-C. MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server, MongoDB là các ví dụ về DBMS.  
+Câu 1.3 DBMS là gì? Phát biểu nào sau đây không đúng?
+
+A. DBMS là phần mềm cho phép người dùng tạo, quản lý và truy xuất dữ liệu trong CSDL.
+
+B. DBMS cung cấp các công cụ để định nghĩa cấu trúc dữ liệu, nhập dữ liệu, truy vấn dữ liệu và bảo mật dữ liệu.
+
+C. MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server, MongoDB là các ví dụ về DBMS.
+
 **D. DBMS chỉ hỗ trợ các mô hình dữ liệu quan hệ, không hỗ trợ mô hình phi quan hệ.**
 
-**Câu 1.4** Theo “Tháp xử lý thông tin”, quá trình chuyển đổi dữ liệu được thực hiện theo thứ tự nào?  
-A. Data > Knowledge > Information > Wisdom  
-B. Information > Data > Knowledge > Wisdom  
-C. Data > Information > Wisdom > Knowledge  
+Câu 1.4 Theo “Tháp xử lý thông tin”, quá trình chuyển đổi dữ liệu được thực hiện theo thứ tự nào?
+
+A. Data > Knowledge > Information > Wisdom
+
+B. Information > Data > Knowledge > Wisdom
+
+C. Data > Information  > Wisdom > Knowledge
+
 **D. Data > Information > Knowledge > Wisdom**
 
-**Câu 2.2** RDBMS là gì? Phát biểu nào sau đây **không đúng**?  
-A. RDBMS là viết tắt của Relational Database Management System - Hệ quản trị CSDL quan hệ.  
-B. RDBMS là một DBMS dùng để quản lý CSDL theo Mô hình quan hệ.  
-C. MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server và IBM DB2 là các ví dụ về RDBMS.  
+Câu 2.2 RDBMS là gì? Phát biểu nào sau đây không đúng?
+
+A. RDBMS là viết tắt của Relational Database Management System - Hệ quản trị CSDL quan hệ.
+
+B. RDBMS là một DBMS dùng để quản lý CSDL theo Mô hình quan hệ.
+
+C. MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server và IBM DB2 là các ví dụ về RDBMS.
+
 **D. RDBMS chỉ hỗ trợ các loại dữ liệu phi cấu trúc, không hỗ trợ dữ liệu có cấu trúc.**
 
-**Câu 2.3** SQL Server là gì? Phát biểu nào sau đây **không đúng**?  
-A. SQL Server là một hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) do Microsoft phát triển.  
-**B. SQL Server không có các công cụ phân tích dữ liệu, không thể tích hợp các công cụ phân tích dữ liệu.**  
-C. SQL Server tuân thủ mô hình quan hệ, tổ chức dữ liệu thành các bảng với các hàng và cột.  
+Câu 2.3 SQL Server là gì? Phát biểu nào sau đây không đúng?
+
+A. SQL Server là một hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) do Microsoft phát triển.
+
+**B. SQL Server không có các công cụ phân tích dữ liệu, không thể tích hợp các công cụ phân tích dữ liệu.**
+
+C. SQL Server tuân thủ mô hình quan hệ, tổ chức dữ liệu thành các bảng với các hàng và cột.
+
 D. SQL Server có nhiều phiên bản khác nhau, từ phi
 
-**Câu 3.2** Hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) bao gồm những thành phần nào? Phát biểu nào sau đây **không đúng**?  
-**A. Công cụ đồ họa (SQL Server Management Studio - SSMS) dùng để vẽ các hình khối cơ bản.**  
-B. Công cụ cơ sở dữ liệu (Database engine) là thành phần cốt lõi, chịu trách nhiệm lưu trữ và quản lý dữ liệu.  
-C. Công cụ dòng lệnh (sqlcmd) cho phép làm việc với Database engine thông qua Command Prompt hoặc PowerShell.  
+Câu 3.2 Hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) bao gồm những thành phần nào? Phát biểu nào sau đây không đúng?
+
+**A. Công cụ đồ họa (SQL Server Management Studio - SSMS) dùng để vẽ các hình khối cơ bản.**
+
+B. Công cụ cơ sở dữ liệu (Database engine) là thành phần cốt lõi, chịu trách nhiệm lưu trữ và quản lý dữ liệu.
+
+C. Công cụ dòng lệnh (sqlcmd) cho phép làm việc với Database engine thông qua Command Prompt hoặc PowerShell.
+
 D. RDBMS còn bao gồm các công cụ quản lý khác, dịch vụ nền, thư viện và các tính năng bổ sung.
 
-**Câu 3.3** Một số mục quan trọng của cửa sổ Connect to Server là gì? Phát biểu nào sau đây **không đúng**?  
-A. Server type cho phép chọn loại máy chủ SQL Server muốn kết nối  
-B. Server name là mục nhập tên hoặc địa chỉ IP của máy chủ SQL Server.  
-**C. Authentication cho phép chọn phương thức xác thực. Kiểu xác thực SQL Server Authentication sử dụng thông tin đăng nhập của Windows.**  
+Câu 3.3 Một số mục quan trọng của cửa sổ Connect to Server là gì? Phát biểu nào sau đây không đúng?
+
+A. Server type cho phép chọn loại máy chủ SQL Server muốn kết nối
+
+B. Server name là mục nhập tên hoặc địa chỉ IP của máy chủ SQL Server.
+
+**C. Authentication cho phép chọn phương thức xác thực. Kiểu xác thực SQL Server Authentication sử dụng thông tin đăng nhập của Windows.**
+
 D. Có 2 kiểu xác thực là Windows Authentication và SQL Server Authentication.
 
-**Câu 4.1** Khi tạo bảng trong cơ sở dữ liệu, một số ràng buộc thường được sử dụng. Phát biểu nào sau đây **không đúng**?  
-A. NOT NULL đảm bảo cột không được phép có giá trị NULL.  
-B. FOREIGN KEY chỉ định cột là khóa chính của bảng khác.  
-C. PRIMARY KEY chỉ định cột là khóa chính, giá trị phải duy nhất và không được NULL.  
+Câu 4.1 Khi tạo bảng trong cơ sở dữ liệu, một số ràng buộc thường được sử dụng. Phát biểu nào sau đây không đúng?
+
+A. NOT NULL đảm bảo cột không được phép có giá trị NULL.
+
+**B. FOREIGN KEY chỉ định cột là khóa chính của bảng khác.**
+
+C. PRIMARY KEY chỉ định cột là khóa chính, giá trị phải duy nhất và không được NULL.
+
 D. UNIQUE đảm bảo giá trị của cột là duy nhất.
 
-**Câu 4.2** Khi tạo bảng trong cơ sở dữ liệu, một số kiểu dữ liệu thường được sử dụng. Phát biểu nào sau đây **không đúng**?  
-**A. CHAR(n) dùng để lưu trữ chuỗi ký tự có độ dài thay đổi.**  
-B. INT dùng để lưu trữ số nguyên.  
-C. VARCHAR(n) dùng để lưu trữ chuỗi ký tự có độ dài tối đa là n.  
+Câu 4.2 Khi tạo bảng trong cơ sở dữ liệu, một số kiểu dữ liệu thường được sử dụng. Phát biểu nào sau đây không đúng?
+
+**A. CHAR(n) dùng để lưu trữ chuỗi ký tự có độ dài thay đổi.**
+
+B. INT dùng để lưu trữ số nguyên.
+
+C. VARCHAR(n) dùng để lưu trữ chuỗi ký tự có độ dài tối đa là n.
+
 D. DATE dùng để lưu trữ ngày tháng năm.
 
-**Câu 5.1** Khóa chính (primary key) là gì? Phát biểu nào sau đây **không đúng**?  
-A. Khóa chính dùng để xác định duy nhất mỗi bản ghi trong một bảng.  
-**B. Giá trị của khóa chính có thể trùng lặp.**  
-C. Mỗi bảng chỉ có một khóa chính.  
+Câu 5.1 Khóa chính (primary key) là gì? Phát biểu nào sau đây không đúng?
+
+A. Khóa chính dùng để xác định duy nhất mỗi bản ghi trong một bảng.
+
+**B. Giá trị của khóa chính có thể trùng lặp.**
+
+C. Mỗi bảng chỉ có một khóa chính.
+
 D. Giá trị của khóa chính không được mang giá trị NULL.
 
-**Câu 5.2** Khóa ngoại (foreign key) là gì? Phát biểu nào sau đây **không đúng**?  
-A. Khóa ngoại được sử dụng để liên kết hai bảng với nhau.  
-B. Khóa ngoại của một bảng tham chiếu đến khóa chính của một bảng khác.  
-C. Khóa ngoại giúp đảm bảo tính toàn vẹn tham chiếu giữa các bảng.  
+Câu 5.2 Khóa ngoại (foreign key) là gì? Phát biểu nào sau đây không đúng?
+
+A. Khóa ngoại được sử dụng để liên kết hai bảng với nhau.
+
+B. Khóa ngoại của một bảng tham chiếu đến khóa chính của một bảng khác.
+
+C. Khóa ngoại giúp đảm bảo tính toàn vẹn tham chiếu giữa các bảng.
+
 **D. Khóa ngoại dùng để xác định duy nhất mỗi bản ghi trong một bảng.**
 
-**Câu 6.2** Phép chọn (SELECT) trong SQL được sử dụng để làm gì? Phát biểu nào sau đây **không đúng**?  
-A. Lệnh SELECT cho phép lấy dữ liệu từ các cột cụ thể hoặc tất cả các cột trong một bảng.  
-B. Mệnh đề WHERE được sử dụng để lọc dữ liệu dựa trên các điều kiện cụ thể.  
-**C. Mệnh đề ORDER BY được sử dụng để nhóm các bản ghi có giá trị giống nhau trong một cột.**  
+Câu hỏi 6.2 Phép chọn (SELECT) trong SQL được sử dụng để làm gì? Phát biểu nào sau đây không đúng?
+
+A. Lệnh SELECT cho phép lấy dữ liệu từ các cột cụ thể hoặc tất cả các cột trong một bảng.
+
+B. Mệnh đề WHERE được sử dụng để lọc dữ liệu dựa trên các điều kiện cụ thể.
+
+**C. Mệnh đề ORDER BY được sử dụng để nhóm các bản ghi có giá trị giống nhau trong một cột.**
+
 D. Mệnh đề GROUP BY cho phép nhóm các bản ghi có giá trị giống nhau trong một cột.
+
+Câu hỏi 19.1 Kiểu dữ liệu VARCHAR trong thiết kế dữ liệu là gì? Phát biểu nào sau đây không đúng?
+
+A. VARCHAR luôn chiếm một lượng bộ nhớ cố định, bằng với độ dài tối đa đã khai báo.
+
+B. VARCHAR là kiểu dữ liệu chuỗi ký tự có độ dài thay đổi. 
+
+C. VARCHAR(n) định nghĩa một chuỗi ký tự có độ dài tối đa là 'n' ký tự. 
+
+**D. VARCHAR giúp tiết kiệm không gian lưu trữ so với kiểu CHAR khi độ dài chuỗi thực tế nhỏ hơn độ dài tối đa.**
+
+Câu hỏi 19.2 Các mối quan hệ giữa các bảng trong thiết kế dữ liệu thường bao gồm những kiểu nào? Phát biểu nào sau đây không đúng?
+
+A. Mối quan hệ một-một (1-1), trong đó một bản ghi ở bảng này liên kết với tối đa một bản ghi ở bảng kia và ngược lại. 
+
+**B. Mối quan hệ một-nhiều (1-N), trong đó một bản ghi ở bảng này có thể liên kết với nhiều bản ghi ở bảng kia, nhưng một bản ghi ở bảng kia chỉ có thể liên kết với một bản ghi ở bảng này.**
+
+C. Mối quan hệ nhiều-nhiều (N-N), trong đó nhiều bản ghi ở bảng này có thể liên kết với nhiều bản ghi ở bảng kia và ngược lại, thường được giải quyết bằng bảng trung gian.
+
+D. Mối quan hệ không-một (0-1), trong đó một bản ghi ở bảng này có thể không liên kết hoặc liên kết với tối đa một bản ghi ở bảng kia. Đây là một kiểu quan hệ cơ bản thường được nhắc đến trong mọi mô hình dữ liệu.
+
+Câu hỏi 20.1 Postgresql là gì? Phát biểu nào sau đây không đúng?
+
+A. Postgresql là một hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) mã nguồn mở, mạnh mẽ và đáng tin cậy. 
+
+**B. Postgresql là một cơ sở dữ liệu mã nguồn mở.**
+
+C. Postgresql tuân thủ chuẩn SQL và hỗ trợ đầy đủ các thuộc tính ACID cho giao dịch.
+
+D. Postgresql hỗ trợ nhiều kiểu dữ liệu đa dạng, bao gồm JSON/JSONB, ARRAY và dữ liệu địa lý (PostGIS).
+
+Câu hỏi 20.2 Bạn có thể sử dụng các công nào để kết nối và làm việc với Postgresql? Phát biểu nào không đúng?
+
+A. Dùng công cụ dòng lệnh: psql.
+
+**B. Dùng giao thức ping**
+
+C. Dùng công cụ GUI: pgAdmin hoặc DBeaver.
+
+D. API/Thư viện (gắn với một ngôn ngữ lập trình): JDBC hoặc Sequelize.
+
+Câu hỏi 21.1 Phát biểu nào sau đây KHÔNG đúng về Code First và Database First trong lập trình với cơ sở dữ liệu?
+
+A. Code First là phương pháp định nghĩa mô hình dữ liệu trong mã nguồn trước, sau đó ORM sẽ tạo hoặc cập nhật schema cơ sở dữ liệu.
+
+B. Database First là phương pháp thiết kế cơ sở dữ liệu trước, sau đó ORM sẽ sinh ra các mô hình trong mã nguồn dựa trên schema đã có.
+
+**C. Cả Code First và Database First đều bỏ qua vai trò của ORM và cho phép lập trình viên tương tác trực tiếp với cơ sở dữ liệu bằng SQL.**
+
+D. Code First thường phù hợp với các dự án mới, trong khi Database First thích hợp với các dự án làm việc trên cơ sở dữ liệu đã tồn tại.
+
+Câu hỏi 21.2 Phát biểu nào sau đây KHÔNG đúng về ORM (Object-Relational Mapping)?
+
+A. ORM là một kỹ thuật lập trình giúp ánh xạ giữa các đối tượng trong mã nguồn và các bảng trong cơ sở dữ liệu quan hệ.
+
+**B. ORM làm tăng độ phức tạp của mã nguồn và giảm hiệu suất phát triển ứng dụng.**
+
+C. ORM cho phép lập trình viên thao tác với cơ sở dữ liệu bằng cú pháp của ngôn ngữ lập trình thay vì viết câu lệnh SQL trực tiếp.
+
+D. Sequelize (Node.js) và Django ORM (Python) là những ví dụ về các ORM phổ biến
+
+Câu hỏi 21.3 Bốn thư mục chính được tạo ra bởi lệnh sequelize init là config, models, migrations, và seeders. Phát biểu nào sau đây về mục đích của các thư mục này là KHÔNG đúng?
+
+**A. Thư mục migrations chứa các tập tin SQL script để thực hiện các thay đổi lược đồ cơ sở dữ liệu theo thời gian.**
+
+B. Thư mục config chứa các tập tin cấu hình kết nối đến cơ sở dữ liệu cho các môi trường phát triển, kiểm thử và sản xuất.
+
+C. Thư mục models chứa các tập tin định nghĩa cấu trúc các bảng trong cơ sở dữ liệu dưới dạng các model (lớp) JavaScript.
+
+D. Thư mục seeders chứa các tập tin JavaScript để chèn dữ liệu mẫu ban đầu vào cơ sở dữ liệu.
