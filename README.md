@@ -1296,7 +1296,7 @@ Postgresql sẽ tự chạy dưới dạng một dịch vụ (services), chứ k
 
 Kết nối tới Postgresql:  
 - Vào menu Object > chọn Connect Server.  
-- Nhập mật khẩu cho user (postgres), ví dụ: p@ssword1
+- Nhập mật khẩu cho user (postgres), ví dụ: p@ssword1  
 ![image](https://github.com/user-attachments/assets/e99ae98f-1373-401b-bc74-3d3e7bd86ce6)
 
 - Vậy là đã có thể sử dụng pgAdmin để tạo cơ sở dữ liệu, tạo bảng, chèn dữ liệu, truy vấn dữ liệu với Postgresql.  
