@@ -1520,7 +1520,7 @@ http://localhost:9000/createTables
 ```
 - Nếu việc tạo bảng thành công, trình duyệt sẽ có dòng chữ “tables created”  
 - Vào pgAdmin sẽ thấy có bảng Tags, ProductTags được tạo ra.  
-Có thể xem Sơ đồ quan hệ thực thể (ERD - Entity Relationship Diagram) của cơ sở dữ liệu UDWDatabase. Ví dụ trong pgAdmin, chuột phải vào UDWDatabase > chọn ERD For Database.
+Có thể xem Sơ đồ quan hệ thực thể (ERD - Entity Relationship Diagram) của cơ sở dữ liệu UDWDatabase. Ví dụ trong pgAdmin, chuột phải vào UDWDatabase > chọn ERD For Database.  
 ![image](https://github.com/user-attachments/assets/54464e44-d6e6-4eee-b817-97c6fedd625e)  
 
 ### BÀI TẬP  
