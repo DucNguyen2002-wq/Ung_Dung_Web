@@ -1313,11 +1313,215 @@ Ví dụ một số lệnh trong psql:
 * ```exit```: Thoát postgres
 
 ### 3.5 Tạo csdl bằng Sequelize
-B1: Tạo cơ sở dữ liệu rỗng
+#### 3.5.1: Tạo cơ sở dữ liệu rỗng  
+- Sử dụng pgAdmin (hoặc một phần mềm thao tác với Postgresql bất kỳ) để tạo một cơ sở dữ liệu rỗng
+![image](https://github.com/user-attachments/assets/808e4fce-3d47-4610-abfd-3741da38df8e)
+- Vào tập tin config/config.json của dự án, chỉnh sửa thông tin kết nối tới cơ sở dữ liệu.
+[config/config.json]
+```javascript
+{
+  "development":
+{
+    "username": "postgres",
+    "password": "p@ssword1",
+    "database": "UDWDatabase",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test":
+{
+```  
+#### Tạo lớp đối tượng  
+Tạo lớp đối tượng có tên là Product (lưu ý: không có chữ s sau Product), bằng lệnh sau:  
+```javascript
+E:\TeoShop>sequelize model:create --name Product --attributes name:string,imagePath:string
+```
+Trong đó,  
+- sequelize: lệnh của sequelize  
+- model:create: tạo model mới  
+- tùy chọn --name Product: tên của model sẽ tạo có tên là Product  
+- tùy chọn --attributes name:string,imagePath:string : định nghĩa tên và kiểu dữ liệu các cột của bảng. Bạn không nhất thiết phải liệt kê đầy đủ các cột của bảng ở dòng lệnh (vì dễ bị lỗi đánh máy), mà nên chỉnh sửa ở trong mã nguồn.
+- Nếu lệnh sequelize model:create chạy thành công, nó sẽ tạo cho chúng ta 2 tập tin, là models\product.js và migrations\ -create-product.js.
+- Chúng ta sẽ mở tập tin models\product.js để định nghĩa các cột còn lại của bảng Products (khi tạo bảng trong cơ sở dữ liệu sẽ có thêm chữ “s” sau chữ Product).
+[models\product.js]
+```javascript
+Product.init({
+    name: DataTypes.STRING,  
+    imagePath: DataTypes.STRING,  
+    oldPrice: DataTypes.DECIMAL,  
+    summary: DataTypes.TEXT,  
+    description: DataTypes.TEXT,  
+    specification: DataTypes.TEXT,  
+    stars: DataTypes.FLOAT,  
+    quantity: DataTypes.INTEGER  
+  },
+{
+    sequelize,  
+    modelName:  
+'Product',
+  });
+```
+- Để thực thi nội dung đã được khai báo trong models\product.js, nhằm tạo ra bảng Products trong cơ sở dữ liệu UDWDatabse, chúng ta sẽ viết đoạn mã trong TeoShop\index.js.  
+[Ung_Dung_Web\index.js]
+```javascript
+//khai bao de su dung engine da dinh nghi
+app.set('view engine', 'hbs');
+//routes va render trang index
+app.get('/createTables', (req, res) => {
+    let models = require('./models');
+    models.sequelize.sync().then(()=> {
+        res.send('tables created');
+    });
+});
+app.get('/', (req, res) =>
+{
+    res.render('index');
+// se lay index.hbs do vao {{{ body }}} trong main.hbs
+});
+```  
+**Ý nghĩa của đoạn mã:**  
+- Đoạn mã này định nghĩa một route GET tại /createTables. Khi người dùng truy cập đường dẫn này, ứng dụng sẽ:  
+- Tham chiếu tới (import) các định nghĩa model từ thư mục ./models.  
+- Gọi phương thức sync() của Sequelize để tạo các bảng trong cơ sở dữ liệu (nếu chúng chưa tồn tại) dựa trên các model đã định nghĩa.  
+- Sau khi quá trình đồng bộ hóa hoàn tất thành công, ứng dụng sẽ gửi phản hồi 'tables created' về cho client (trình duyệt). Học thêm về viết hàm theo kiểu Promise (.then()).  
+Lưu lại tập tin mã nguồn TeoShop\index.js, khởi động lại web server, mở trình duyệt, nhập vào đường dẫn: http://localhost:9000/createTables
 
-B2: Chỉnh thông tin password, database theo cài đặt trên máy của bạn trong file config.json
+#### Tạo các bảng và mối quan hệ  
+##### Tạo các bảng có mối quan hệ 1-n
+Vào cửa sổ dòng lệnh, tắt web server, nhập vào đoạn mã sau để tạo model cho bảng Images:  
+```javascript
+E:\TeoShop>sequelize model:create --name Image --attributes name:string,imagePath:string  
+```
+Nhập vào đoạn mã sau để tạo model cho bảng Brands:
+```javascript
+E:\TeoShop>sequelize model:create --name Brand --attributes name:string,imagePath:string  
+``` 
+**Tạo các bảng có mối quan hệ 1-n**  
+Mối quan hệ giữa 2 bảng Products và Images là 1-n, nghĩa là một sản phẩm (product) sẽ có nhiều hình ảnh (image).  
+Vào tập tin models\product.js, thêm đoạn mã sau:  
+[models\product.js]
+```javascript
+static
+associate(models) {
+      //define association here
+      Product.hasMany(models.Image, { foreignKey: 'productId' });
+    }
+  }
+  Product.init({
+```
+- Hiểu đoạn mã nguồn là: một product thì có nhiều (hasMany) image, khóa ngoại trong bảng Images sẽ có tên là productId.  
 
-B3: Tạo các bảng của đối tượng
+Vào tập tin models\image.js, thêm vào đoạn mã sau:  
+[models\image.js]  
+```javascript
+static
+associate(models) {
+      //define association here
+      Image.belongsTo(models.Product, { foreignKey:'productId'});
+    }
+  }
+  Image.init({
+```
+- Hiểu đoạn mã nguồn là: một image thuộc về (belongs to) một product, thông qua khóa ngoại productId.  
+Tương tự, mối quan hệ giữa 2 bảng Brands và Products là 1-n, nghĩa là một thương hiệu (brand) sẽ có nhiều sản phẩm (product).  
+Vào tập tin models\brand.js, thêm đoạn mã sau:  
+[models\brand.js]  
+```javascript
+static
+associate(models) {
+      //define association here
+      Brand.hasMany(models.Product, { foreignKey:'brandId' });
+    }
+  }
+  Brand.init({
+```
+- Hiểu đoạn mã nguồn là: một brand có nhiều (hasMany) product, thông qua khóa ngoại brandId.  
+Vào tập tin models\product.js, thêm đoạn mã sau:  
+[models\product.js]  
+```javascript
+static
+associate(models) {
+      //define association here
+      Product.hasMany(models.Image,{ foreignKey: 'productId'});
+      Product.belongsTo(models.Brand, { foreignKey:'brandId' } );
+    }
+```
+- Hiểu đoạn mã nguồn là: một product thuộc về (belongsTo) một brand, thông qua khóa ngoại brandId.  
+Để cập nhật các khai báo về mối quan hệ 1-n vừa khai báo ở trên vào cơ sở dữ liệu, chúng ta cần thực hiện các bước sau:  
+- Lưu lại mã nguồn của các tập tin vừa được thêm mã nguồn.  
+- Mở pgAdmin, xóa các bảng liên quan (Products).  
+- Khởi chạy lại web server.
+- Mở trình duyệt web, gõ lại lệnh /createTables (http://localhost:9000/createTables).
+- Nếu lệnh /createTables chạy thành công, bạn sẽ thấy dòng thông báo “tables created” trên trình duyệt
+- Mở lại cơ sở dữ liệu trong pgAdmin sẽ thấy 3 bảng xuất hiện, trong mỗi bảng sẽ có thêm trường khóa ngoại (ví dụ, trong bảng Products sẽ là brandId; trong bảng Images sẽ là productId). Các trường createdAt và updateAt trong mỗi bảng cũng được tạo tự động. Trong mỗi bảng, bạn vào mục Constraints để xem các khóa ngoại đã được tạo ra (ví dụ Images_productId_fkey).  
+##### Tạo các bảng có mối quan hệ n-n  
+Một product có thể gắn nhiều tag; một tag có thể gắn cho nhiều product. Do vậy, mối quan hệ giữa bảng Products và Tags là n - n (nhiều - nhiều).  
+Vào cửa sổ dòng lệnh, tắt web server, nhập vào đoạn mã sau để tạo model cho bảng Tags:  
+```javascript
+E:\TeoShop>sequelize model:create --name Tag --attributes name:string  
+```
+Nhập tiếp đoạn mã sau để tạo model cho bảng ProductTags (vì bảng này chỉ có 2 thuộc tính là khóa ngoại, nên sẽ không cần tùy chọn --attributes, nhưng thiếu tùy chọn này lệnh sẽ bị lỗi, vì vậy chúng ta cứ thêm tùy chọn --attributes name:string rồi sẽ xóa sau):  
+```javascript
+E:\TeoShop>sequelize model:create --name ProductTag --attributes name:string
+```
+Để định nghĩa mối quan hệ nhiều-nhiều giữa bảng Products và Tags, chúng ta cần định nghĩa trên 3 model, gồm: product.js, tag.js và producttag.js.  
+Vào tập tin models\tag.js, thêm đoạn mã sau:  
+[models\tag.js]  
+```javascript
+static associate(models) {
+      // define association here
+      Tag.belongsToMany(models.Product,{ through: 'ProductTag', foreignKey: 'tagId', otherKey: 'productId'});
+    }
+  }
+  Tag.init({
+```
+Hiểu đoạn mã nguồn là: một tag thuộc về nhiều (belongsToMany) product, được thể hiện trong bảng ProductTags, với khóa chính được tạo ra từ 2 khóa ngoại là tagId và productId.  
+Tương tự, vào tập tin models\product.js, thêm vào đoạn mã sau:  
+[models\product.js]  
+```javascript
+    Product.hasMany(models.Image,{ foreignKey: 'productId'});
+    Product.belongsTo(models.Brand, {foreignKey:'brandId'} );
+    Product.belongsToMany(models.Tag, { through: 'ProductTag', foreignKey: 'productId', otherKey: 'tagId' });
+    }
+  }
+```
+Tương tự, vào tập tin models\producttag.js, thêm vào đoạn mã sau:  
+[models\producttag.js]  
+```javascript
+    static associate(models) {
+      // define association here
+      ProductTag.belongsTo(models.Product, {foreignKey: 'productId' });
+      ProductTag.belongsTo(models.Tag,{ foreignKey: 'tagId' });
+    }
+  }
+  ProductTag.init({
+```
+Chúng ta cũng xóa bỏ dòng tô đậm (tạo cột name: name: DataTypes.STRING) trong models\producttag.js  
+[models\producttag.js]  
+```javascript
+    }
+  ProductTag.init({
+    name: DataTypes.STRING
+  },
+{
+    sequelize,
+    modelName:
+'ProductTag',
+  });
+  return
+  ProductTag;
+```
+Do chúng ta không chỉnh sửa các cột của bảng Products, nên chúng ta không cần xóa bảng Products, mà chỉ cần chạy lệnh \createTables để tạo bảng Tags và ProductTags từ model tag.js và producttag.js.  
+- Lưu lại mã nguồn các model: product.js, tag.js và producttag.js.  
+- Khởi chạy lại web server  
+- Mở trình duyệt, nhập vào đường dẫn:
+```javascript
+http://localhost:9000/createTables
+```
+- Nếu việc tạo bảng thành công, trình duyệt sẽ có dòng chữ “tables created”  
+- Vào pgAdmin sẽ thấy có bảng Tags, ProductTags được tạo ra.  
+Có thể xem Sơ đồ quan hệ thực thể (ERD - Entity Relationship Diagram) của cơ sở dữ liệu UDWDatabase. Ví dụ trong pgAdmin, chuột phải vào UDWDatabase > chọn ERD For Database.
+![image](https://github.com/user-attachments/assets/54464e44-d6e6-4eee-b817-97c6fedd625e)  
 
 ### BÀI TẬP  
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
