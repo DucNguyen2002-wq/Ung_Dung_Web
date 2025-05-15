@@ -2178,11 +2178,11 @@ Câu hỏi 19.2 Các mối quan hệ giữa các bảng trong thiết kế dữ 
 
 A. Mối quan hệ một-một (1-1), trong đó một bản ghi ở bảng này liên kết với tối đa một bản ghi ở bảng kia và ngược lại. 
 
-**B. Mối quan hệ một-nhiều (1-N), trong đó một bản ghi ở bảng này có thể liên kết với nhiều bản ghi ở bảng kia, nhưng một bản ghi ở bảng kia chỉ có thể liên kết với một bản ghi ở bảng này.**
+B. Mối quan hệ một-nhiều (1-N), trong đó một bản ghi ở bảng này có thể liên kết với nhiều bản ghi ở bảng kia, nhưng một bản ghi ở bảng kia chỉ có thể liên kết với một bản ghi ở bảng này.
 
 C. Mối quan hệ nhiều-nhiều (N-N), trong đó nhiều bản ghi ở bảng này có thể liên kết với nhiều bản ghi ở bảng kia và ngược lại, thường được giải quyết bằng bảng trung gian.
 
-D. Mối quan hệ không-một (0-1), trong đó một bản ghi ở bảng này có thể không liên kết hoặc liên kết với tối đa một bản ghi ở bảng kia. Đây là một kiểu quan hệ cơ bản thường được nhắc đến trong mọi mô hình dữ liệu.
+**D. Mối quan hệ không-một (0-1), trong đó một bản ghi ở bảng này có thể không liên kết hoặc liên kết với tối đa một bản ghi ở bảng kia. Đây là một kiểu quan hệ cơ bản thường được nhắc đến trong mọi mô hình dữ liệu.**
 
 Câu hỏi 20.1 Postgresql là gì? Phát biểu nào sau đây không đúng?
 
